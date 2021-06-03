@@ -1,0 +1,2 @@
+recursive-include ufl4rom *.py
+global-exclude __pycache__ *.pyc
