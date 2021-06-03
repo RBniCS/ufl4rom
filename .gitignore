@@ -1,0 +1,9 @@
+*~
+*.bak
+*.cache
+*.egg
+*.egg-info
+*.py[cdo]
+.pytest_cache
+build
+dist
