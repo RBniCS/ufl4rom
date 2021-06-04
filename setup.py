@@ -30,5 +30,5 @@ setup(name="ufl4rom",
       packages=find_packages(),
       include_package_data=True,
       install_requires=["fenics-ufl"],
-      tests_require=["pytest", "pytest-flake8"]
+      tests_require=["mpi4py", "pytest"]
       )
