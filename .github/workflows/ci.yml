@@ -27,21 +27,49 @@ jobs:
         )
       )
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - backend: none
+            container: ubuntu
+            setup_container: |
+              export DEBIAN_FRONTEND="noninteractive"
+              apt-get -qq update
+              apt-get install -qq git python3-mpi4py python3-pip
+              pip3 -q install pytest pytest-flake8 pytest-xdist
+              pip3 -q install git+https://github.com/FEniCS/ufl.git
+          - backend: dolfin
+            container: quay.io/fenicsproject/dev
+            setup_container: |
+              pip3 -q install --upgrade pytest pytest-flake8 pytest-xdist
+          - backend: dolfinx
+            container: dolfinx/dolfinx
+            setup_container: |
+              pip3 -q install --upgrade pytest pytest-flake8 pytest-xdist
+          - backend: firedrake
+            container: firedrakeproject/firedrake
+            setup_container: |
+              echo "/home/firedrake/firedrake/bin" >> $GITHUB_PATH
+              export PATH=$(cat $GITHUB_PATH):$PATH
+              pip3 -q install --upgrade pytest pytest-flake8 pytest-xdist
+
+      fail-fast: false
+    container:
+      image: ${{ matrix.container }}
+      options: --user root
     steps:
       - uses: actions/checkout@v2
       - name: Setup container
-        run: |
-          export DEBIAN_FRONTEND="noninteractive"
-          sudo apt-get -qq update
-          sudo apt-get install -qq python3-mpi4py python3-pip
-          pip3 -q install pytest pytest-flake8 pytest-xdist
-          pip3 -q install git+https://github.com/FEniCS/ufl.git
+        run: ${{ matrix.setup_container }}
       - name: Install ufl4rom
         run: |
-          python3 setup.py -q install --user
+          pip3 install .
       - name: Run flake8 checks
         run: |
           pytest --flake8 -m flake8
       - name: Run unit tests
         run: |
           pytest -n auto tests/unit
+      - name: Run integration tests
+        run: |
+          pytest -n auto tests/integration
