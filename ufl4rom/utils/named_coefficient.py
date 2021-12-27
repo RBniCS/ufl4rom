@@ -4,6 +4,7 @@
 #
 # SPDX-License-Identifier: LGPL-3.0-or-later
 
+import re
 from ufl import Coefficient
 
 
@@ -16,6 +17,9 @@ class NamedCoefficient(Coefficient):
         # get a representation which is independent on the internal counter
         self._repr = "NamedCoefficient({}, {})".format(
             repr(self._name), repr(self._ufl_function_space))
+        self._repr = re.sub(" +", " ", self._repr)
+        self._repr = re.sub(r"\[ ", "[", self._repr)
+        self._repr = re.sub(r" \]", "]", self._repr)
 
     def __str__(self):
         return self._name

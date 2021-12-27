@@ -4,6 +4,7 @@
 #
 # SPDX-License-Identifier: LGPL-3.0-or-later
 
+import re
 from ufl import Constant
 from ufl4rom.utils.backends import DolfinConstant, DolfinxConstant, FiredrakeConstant
 
@@ -17,6 +18,9 @@ class NamedConstant(Constant):
         # get a representation which is independent on the internal counter
         self._repr = "NamedConstant({}, {}, {})".format(
             repr(self._name), repr(self._ufl_domain), repr(self._ufl_shape))
+        self._repr = re.sub(" +", " ", self._repr)
+        self._repr = re.sub(r"\[ ", "[", self._repr)
+        self._repr = re.sub(r" \]", "]", self._repr)
 
     def __str__(self):
         return self._name
@@ -36,6 +40,9 @@ class DolfinxNamedConstant(DolfinxConstant):
         # get a representation which is independent on the internal counter
         self._repr = "DolfinxNamedConstant({}, {}, {})".format(
             repr(self._name), repr(self.value), repr(self._ufl_domain))
+        self._repr = re.sub(" +", " ", self._repr)
+        self._repr = re.sub(r"\[ ", "[", self._repr)
+        self._repr = re.sub(r" \]", "]", self._repr)
 
     def __str__(self):
         return self._name
@@ -50,6 +57,9 @@ class FiredrakeNamedConstant(FiredrakeConstant):
         # get a representation which is independent on the internal counter
         self._repr = "FiredrakeNamedConstant({}, {}, {})".format(
             repr(self._name), repr(self.values()), repr(self._ufl_function_space._ufl_domain))
+        self._repr = re.sub(" +", " ", self._repr)
+        self._repr = re.sub(r"\[ ", "[", self._repr)
+        self._repr = re.sub(r" \]", "]", self._repr)
 
     def __str__(self):
         return self._name
