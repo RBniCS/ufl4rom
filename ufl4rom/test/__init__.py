@@ -1,4 +1,4 @@
-# Copyright (C) 2021 by the ufl4rom authors
+# Copyright (C) 2021-2022 by the ufl4rom authors
 #
 # This file is part of ufl4rom.
 #
