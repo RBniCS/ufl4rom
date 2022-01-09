@@ -73,3 +73,9 @@ jobs:
       - name: Run integration tests
         run: |
           pytest -n auto tests/integration
+      - name: Warn if scheduled workflow is about to be disabled
+        if: github.repository == 'RBniCS/ufl4rom' && github.ref == 'refs/heads/main' && github.event_name == 'schedule'
+        uses: fem-on-colab/warn-workflow-about-to-be-disabled-action@main
+        with:
+          workflow-filename: ci.yml
+          days-elapsed: 50
