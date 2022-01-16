@@ -42,6 +42,8 @@ def test_name_scalar_1_dolfin():
 def test_name_scalar_1_dolfinx():
     ufl = pytest.importorskip("ufl")
     dolfinx = pytest.importorskip("dolfinx")
+    pytest.importorskip("dolfinx.fem")
+    pytest.importorskip("dolfinx.mesh")
     mesh = dolfinx.mesh.create_unit_square(MPI.COMM_WORLD, 2, 2)
     V = dolfinx.fem.FunctionSpace(mesh, ("Lagrange", 1))
 
@@ -121,6 +123,8 @@ def test_name_scalar_13_dofin():
 def test_name_scalar_13_dofinx():
     ufl = pytest.importorskip("ufl")
     dolfinx = pytest.importorskip("dolfinx")
+    pytest.importorskip("dolfinx.fem")
+    pytest.importorskip("dolfinx.mesh")
     from ufl4rom.utils.named_constant import DolfinxNamedConstant
 
     mesh = dolfinx.mesh.create_unit_square(MPI.COMM_WORLD, 2, 2)
@@ -207,6 +211,8 @@ def test_name_scalar_failure_coefficient_dolfin():
 def test_name_scalar_failure_coefficient_dolfinx():
     ufl = pytest.importorskip("ufl")
     dolfinx = pytest.importorskip("dolfinx")
+    pytest.importorskip("dolfinx.fem")
+    pytest.importorskip("dolfinx.mesh")
     mesh = dolfinx.mesh.create_unit_square(MPI.COMM_WORLD, 2, 2)
     V = dolfinx.fem.FunctionSpace(mesh, ("Lagrange", 1))
 
