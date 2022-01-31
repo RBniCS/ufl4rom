@@ -31,7 +31,7 @@ class NamedConstant(ufl.Constant):
         self._repr = re.sub(r"\[ ", "[", self._repr)
         self._repr = re.sub(r" \]", "]", self._repr)
 
-    def __str__(self) -> str:
+    def __str__(self) -> str:  # pragma: no cover
         """Return a string representation which is independent on internal counters."""
         return self._name
 
