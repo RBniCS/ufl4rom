@@ -75,8 +75,8 @@ jobs:
       - name: Install ufl4rom
         run: |
           BACKEND=${{ matrix.backend }}
-          BACKEND=${BACKEND%:*}
-          python3 -m pip install .[${BACKEND},docs,lint,tests,tutorials]
+          BACKEND=backend_${BACKEND%-*}
+          python3 -m pip install .[${BACKEND},docs,lint,tests]
         shell: bash
       - name: Run flake8 checks
         run: |
