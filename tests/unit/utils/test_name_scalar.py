@@ -470,3 +470,18 @@ def test_name_scalar_failure_constant() -> None:
         ufl4rom.utils.name(a13)
     assert (
         str(excinfo.value) == "The case of plain UFL constants is not handled, because its value cannot be extracted")
+
+
+def test_name_scalar_debug() -> None:
+    """Test again form 1 with the additional debug option."""
+    cell = ufl.triangle
+    element = ufl.FiniteElement("Lagrange", cell, 1)
+
+    u = ufl.TrialFunction(element)
+    v = ufl.TestFunction(element)
+    f1 = ufl4rom.utils.NamedCoefficient("parametrized coefficient 1", element)
+    f2 = ufl4rom.utils.NamedCoefficient("parametrized coefficient 2", element)
+    f3 = ufl4rom.utils.NamedCoefficient("parametrized coefficient 3", element)
+
+    a1 = f3 * f2 * ufl.inner(ufl.grad(u), ufl.grad(v)) * ufl.dx + f2 * u.dx(0) * v * ufl.dx + f1 * u * v * ufl.dx
+    assert ufl4rom.utils.name(a1, debug=True) == "8bfbb685ff8a1bc1671e5e20e67d7622dc8b7f50"

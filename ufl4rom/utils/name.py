@@ -23,11 +23,15 @@ from ufl4rom.utils.named_constant import (
     DolfinNamedConstant, DolfinxNamedConstant, FiredrakeNamedConstant, NamedConstant)
 
 
-def name(e: typing.Union[ufl.core.expr.Expr, ufl.Form, ufl.Integral]) -> str:
+def name(e: typing.Union[ufl.core.expr.Expr, ufl.Form, ufl.Integral], debug: bool = False) -> str:
     """Compute a stable name for an expression, an integral or a form."""
+    if debug:
+        print(f"Original expression:\n{e}\n")
     # Preprocess indices first, as their numeric value might change from run to run, but they
     # are always sorted the same way
     e = ufl.algorithms.renumbering.renumber_indices(e)
+    if debug:
+        print(f"Expression after index renumbering:\n{e}\n")
     # Construct name from the preprocessed expression
     nh = NameHandler()
     if isinstance(e, (ufl.Form, ufl.Integral)):
@@ -37,10 +41,14 @@ def name(e: typing.Union[ufl.core.expr.Expr, ufl.Form, ufl.Integral]) -> str:
         e = ufl.corealg.map_dag.map_expr_dags(nh, [e])
     # Obatain string representation
     repr_e = repr(e)
+    if debug:
+        print(f"Expression after name replacement:\n{repr_e}\n")
     # Some backends (e.g., firedrake.mesh.MeshTopology) do not define repr for every object, and thus
     # we may still have strings like <ClassName object at address> in the representation.
     # In those cases simply discard the address in order to have a reproducible representation.
     repr_e = re.sub(r"\<(.+?) object at (.+?)\>", r"\1", repr_e)
+    if debug:
+        print(f"Expression after address discard:\n{repr_e}\n")
     # All backends keep an internal id associated to the mesh object, and such id is not stripped by
     # renumber_indices. Strip the mesh id manually.
     repr_e = re.sub(
@@ -48,8 +56,13 @@ def name(e: typing.Union[ufl.core.expr.Expr, ufl.Form, ufl.Integral]) -> str:
         r"Mesh(VectorElement(FiniteElement('Lagrange', \1, \2), dim=\3))",
         repr_e
     )
+    if debug:
+        print(f"Expression after id discard:\n{repr_e}\n")
     # Compute SHA of the representation
-    return hashlib.sha1(repr_e.encode("utf-8")).hexdigest()
+    sha = hashlib.sha1(repr_e.encode("utf-8")).hexdigest()
+    if debug:
+        print(f"Computed name:\n{sha}")
+    return sha
 
 
 class NameHandler(ufl.corealg.multifunction.MultiFunction):
