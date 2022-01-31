@@ -86,10 +86,10 @@ jobs:
           cd docs && make html
       - name: Run unit tests
         run: |
-          COVERAGE_FILE=.coverage_unit python3 -m coverage run --source=ufl4rom -m pytest tests/unit
+          COVERAGE_FILE=.coverage_unit python3 -m coverage run --source=ufl4rom -m pytest --random-order tests/unit
       - name: Run integration tests
         run: |
-          COVERAGE_FILE=.coverage_integration python3 -m coverage run --source=ufl4rom -m pytest tests/integration
+          COVERAGE_FILE=.coverage_integration python3 -m coverage run --source=ufl4rom -m pytest --random-order tests/integration
       - name: Upload coverage report as an artifact
         uses: actions/upload-artifact@v2
         with:
