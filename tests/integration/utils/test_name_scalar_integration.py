@@ -75,7 +75,7 @@ def test_name_scalar_1_firedrake() -> None:
     assert ufl4rom.utils.name(a1) == "72260f6a6b5ad3fee82cc86ac80bf38e5f117554"
 
 
-def test_name_scalar_13_dofin() -> None:
+def test_name_scalar_13_dolfin() -> None:
     """We now introduce dolfin constants in the expression."""
     dolfin = pytest.importorskip("dolfin")
 
@@ -103,7 +103,7 @@ def test_name_scalar_13_dofin() -> None:
     assert ufl4rom.utils.name(a13) == "06b6fad151908da18f966cfcf17b2ecf6850006c"
 
 
-def test_name_scalar_13_dofinx() -> None:
+def test_name_scalar_13_dolfinx() -> None:
     """We now introduce dolfinx constants in the expression."""
     ufl = pytest.importorskip("ufl")
     dolfinx = pytest.importorskip("dolfinx")
@@ -111,6 +111,9 @@ def test_name_scalar_13_dofinx() -> None:
     pytest.importorskip("dolfinx.mesh")
     mpi4py = pytest.importorskip("mpi4py")
     pytest.importorskip("mpi4py.MPI")
+    np = pytest.importorskip("numpy")
+    petsc4py = pytest.importorskip("petsc4py")
+    pytest.importorskip("petsc4py.PETSc")
 
     mesh = dolfinx.mesh.create_unit_square(mpi4py.MPI.COMM_WORLD, 2, 2)
     scalar_V = dolfinx.fem.FunctionSpace(mesh, ("Lagrange", 1))
@@ -123,7 +126,7 @@ def test_name_scalar_13_dofinx() -> None:
     f2 = dolfinx.fem.Function(vector_V, name="parametrized coefficient 2, vector")
     f3 = dolfinx.fem.Function(tensor_V, name="parametrized coefficient 3, tensor")
     c1 = ufl4rom.utils.DolfinxNamedConstant("parametrized constant 1, scalar", mesh, 1.0)
-    c2 = dolfinx.fem.Constant(mesh, ((1.0, 2.0), (3.0, 4.0)))
+    c2 = dolfinx.fem.Constant(mesh, np.array([[1.0, 2.0], [3.0, 4.0]], petsc4py.PETSc.ScalarType))
 
     dx = ufl.dx
     grad = ufl.grad
@@ -133,12 +136,19 @@ def test_name_scalar_13_dofinx() -> None:
         inner(c2 * f3 * c1 * grad(u), grad(v)) * dx + inner(c1 * f2, grad(u)) * v * dx
         + c1 * f1 * u * v * dx
     )
-    assert ufl4rom.utils.name(a13) == "148abf0ce5b66db179e05a6f9c03880cd4dfc32b"
+    if np.issubdtype(petsc4py.PETSc.ScalarType, np.complexfloating):  # names differ due to different c2 dtype
+        expected_name = "7e8d09a9353f81eb4d73001c3c69c185714708df"
+    else:
+        expected_name = "148abf0ce5b66db179e05a6f9c03880cd4dfc32b"
+    assert ufl4rom.utils.name(a13) == expected_name
 
 
 def test_name_scalar_13_firedrake() -> None:
     """We now introduce firedrake constants in the expression."""
     firedrake = pytest.importorskip("firedrake")
+    np = pytest.importorskip("numpy")
+    petsc4py = pytest.importorskip("petsc4py")
+    pytest.importorskip("petsc4py.PETSc")
 
     mesh = firedrake.UnitSquareMesh(2, 2)
     scalar_V = firedrake.FunctionSpace(mesh, "Lagrange", 1)
@@ -161,7 +171,11 @@ def test_name_scalar_13_firedrake() -> None:
         inner(c2 * f3 * c1 * grad(u), grad(v)) * dx + inner(c1 * f2, grad(u)) * v * dx
         + c1 * f1 * u * v * dx
     )
-    assert ufl4rom.utils.name(a13) == "e869ce69d844731a95d97a5d560cd833c61335d1"
+    if np.issubdtype(petsc4py.PETSc.ScalarType, np.complexfloating):  # names differ due to different c2 dtype
+        expected_name = "39e3bcaa7bbefe05ce8e1f0a19db7e0b6b6085ff"
+    else:
+        expected_name = "e869ce69d844731a95d97a5d560cd833c61335d1"
+    assert ufl4rom.utils.name(a13) == expected_name
 
 
 def test_name_scalar_failure_coefficient_dolfin() -> None:
