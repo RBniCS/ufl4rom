@@ -79,15 +79,11 @@ class SumExpander(ufl.corealg.multifunction.MultiFunction):
         return self._transform_multilinear_operator(o, *ops)
 
     def nabla_grad(self, o: ufl.core.expr.Expr, *ops: ufl.core.expr.Expr) -> ufl.core.expr.Expr:
-        """Transorm gradient in the reference domain as multilinear operators."""
+        """Transorm gradient (different index convention) as multilinear operators."""
         return self._transform_multilinear_operator(o, *ops)
 
     def nabla_div(self, o: ufl.core.expr.Expr, *ops: ufl.core.expr.Expr) -> ufl.core.expr.Expr:
-        """Transorm divergence in the reference domain as multilinear operators."""
-        return self._transform_multilinear_operator(o, *ops)
-
-    def diff(self, o: ufl.core.expr.Expr, *ops: ufl.core.expr.Expr) -> ufl.core.expr.Expr:
-        """Transorm partial derivatives as multilinear operators."""
+        """Transorm divergence (different index convention) as multilinear operators."""
         return self._transform_multilinear_operator(o, *ops)
 
     def indexed(self, o: ufl.core.expr.Expr, *ops: ufl.core.expr.Expr) -> ufl.core.expr.Expr:

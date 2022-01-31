@@ -5,6 +5,9 @@
 # SPDX-License-Identifier: LGPL-3.0-or-later
 """Unit tests for ufl4rom.utils.expand_sum module."""
 
+import typing
+
+import pytest
 import ufl
 import ufl.algorithms.renumbering
 
@@ -42,8 +45,9 @@ def test_expand_sum_real_sum() -> None:
     assert ufl4rom.utils.expand_sum(form_before_expansion) == expected_form_after_expansion
 
 
-def test_expand_sum_real_sum_grad() -> None:
-    """Test ufl4rom.utils.expand_sum when the form contains the gradient of the sum of arguments components."""
+@pytest.mark.parametrize("op", [ufl.grad, ufl.div, ufl.curl, ufl.nabla_grad, ufl.nabla_div])
+def test_expand_sum_real_sum_differential_operators(op: typing.Callable) -> None:
+    """Test ufl4rom.utils.expand_sum when the form contains a differential operator of the arguments."""
     cell = ufl.triangle
     scalar_element = ufl.FiniteElement("Lagrange", cell, 1)
     vector_element = ufl.VectorElement("Lagrange", cell, 1)
@@ -52,12 +56,12 @@ def test_expand_sum_real_sum_grad() -> None:
     v = ufl.TestFunction(vector_element)
     f = ufl.Coefficient(scalar_element)
 
-    form_before_expansion = f * ufl.inner(ufl.grad(u[0] + u[1]), ufl.grad(v[0] + v[1])) * ufl.dx
+    form_before_expansion = f * ufl.inner(op(u[0] + u[1]), op(v[0] + v[1])) * ufl.dx
     expected_form_after_expansion = (
-        f * ufl.inner(ufl.grad(u[0]), ufl.grad(v[0])) * ufl.dx
-        + f * ufl.inner(ufl.grad(u[1]), ufl.grad(v[0])) * ufl.dx
-        + f * ufl.inner(ufl.grad(u[0]), ufl.grad(v[1])) * ufl.dx
-        + f * ufl.inner(ufl.grad(u[1]), ufl.grad(v[1])) * ufl.dx)
+        f * ufl.inner(op(u[0]), op(v[0])) * ufl.dx
+        + f * ufl.inner(op(u[1]), op(v[0])) * ufl.dx
+        + f * ufl.inner(op(u[0]), op(v[1])) * ufl.dx
+        + f * ufl.inner(op(u[1]), op(v[1])) * ufl.dx)
 
     assert ufl4rom.utils.expand_sum(form_before_expansion) == expected_form_after_expansion
 
