@@ -3,20 +3,23 @@
 # This file is part of ufl4rom.
 #
 # SPDX-License-Identifier: LGPL-3.0-or-later
+"""Rewrite quotient expr1 / expr2 as expr1 * (1 / expr2)."""
 
-from ufl.algorithms.map_integrands import map_integrand_dags
-from ufl.corealg.multifunction import MultiFunction
-
-
-def rewrite_quotients(form):
-    """
-    Rewrite quotient expr1 / expr2 as expr1 * (1 / expr2)
-    """
-    return map_integrand_dags(RewriteQuotientsReplacer(), form)
+import ufl
+import ufl.algorithms.map_integrands
+import ufl.corealg.multifunction
 
 
-class RewriteQuotientsReplacer(MultiFunction):
-    expr = MultiFunction.reuse_if_untouched
+def rewrite_quotients(form: ufl.Form) -> ufl.Form:
+    """Rewrite quotient expr1 / expr2 as expr1 * (1 / expr2)."""
+    return ufl.algorithms.map_integrands.map_integrand_dags(RewriteQuotientsReplacer(), form)
 
-    def division(self, o, n, d):
+
+class RewriteQuotientsReplacer(ufl.corealg.multifunction.MultiFunction):
+    """UFL MultiFunction object that carries out division replacement."""
+
+    expr = ufl.corealg.multifunction.MultiFunction.reuse_if_untouched
+
+    def division(self, o: ufl.core.expr.Expr, n: ufl.core.expr.Expr, d: ufl.core.expr.Expr) -> ufl.core.expr.Expr:
+        """Replace n / d with n * (1 / d)."""
         return n * (1 / d)

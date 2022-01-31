@@ -3,25 +3,9 @@
 # This file is part of ufl4rom.
 #
 # SPDX-License-Identifier: LGPL-3.0-or-later
+"""pytest configuration file for integration tests."""
 
-import gc
-from mpi4py import MPI
+import nbvalx.pytest_hooks_unit_tests
 
-
-def pytest_runtest_setup(item):
-    # Do the normal setup
-    item.setup()
-    # Disable garbage collection
-    gc.disable()
-
-
-def pytest_runtest_teardown(item, nextitem):
-    # Do the normal teardown
-    item.teardown()
-    # Re-enable garbage collection
-    gc.enable()
-    # Run garbage gollection
-    del item
-    gc.collect()
-    # Add a MPI barrier in parallel
-    MPI.COMM_WORLD.Barrier()
+pytest_runtest_setup = nbvalx.pytest_hooks_unit_tests.runtest_setup
+pytest_runtest_teardown = nbvalx.pytest_hooks_unit_tests.runtest_teardown

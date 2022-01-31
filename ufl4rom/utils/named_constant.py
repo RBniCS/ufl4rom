@@ -3,15 +3,24 @@
 # This file is part of ufl4rom.
 #
 # SPDX-License-Identifier: LGPL-3.0-or-later
+"""Add a name to ufl.Constant and its specialization offered by backends."""
 
+import numbers
 import re
-from ufl import Constant
+import typing
+
+import ufl
+
 from ufl4rom.utils.backends import DolfinConstant, DolfinxConstant, FiredrakeConstant
 
 
-class NamedConstant(Constant):
-    def __init__(self, name, domain, shape=(), count=None):
-        Constant.__init__(self, domain, shape, count)
+class NamedConstant(ufl.Constant):
+    """An ufl.Constant with an additional name attribute."""
+
+    def __init__(
+        self, name: str, domain: ufl.AbstractDomain, shape: typing.Tuple[int] = (), count: int = None
+    ) -> None:
+        super().__init__(domain, shape, count)
         self._name = name
 
         # Neglect the count argument when preparing the representation string, as we aim to
@@ -22,18 +31,28 @@ class NamedConstant(Constant):
         self._repr = re.sub(r"\[ ", "[", self._repr)
         self._repr = re.sub(r" \]", "]", self._repr)
 
-    def __str__(self):
+    def __str__(self) -> str:
+        """Return a string representation which is independent on internal counters."""
         return self._name
 
 
 class DolfinNamedConstant(DolfinConstant):
-    def __init__(self, name, value, cell=None):
-        DolfinConstant.__init__(self, value, cell, name)
+    """A dolfin.Constant with constructor arguments in a slighlty different order."""
+
+    def __init__(
+        self, name: str, value: typing.Union[numbers.Real, typing.Iterable[numbers.Real]], cell: ufl.Cell = None
+    ) -> None:
+        super().__init__(value, cell, name)
 
 
 class DolfinxNamedConstant(DolfinxConstant):
-    def __init__(self, name, value, domain):
-        DolfinxConstant.__init__(self, value, domain)
+    """A dolfinx.Constant with an additional name attribute."""
+
+    def __init__(
+        self, name: str, value: typing.Union[numbers.Number, typing.Iterable[numbers.Number]],
+        domain: ufl.AbstractDomain
+    ) -> None:
+        super().__init__(value, domain)
         self._name = name
 
         # Neglect the count argument when preparing the representation string, as we aim to
@@ -44,13 +63,19 @@ class DolfinxNamedConstant(DolfinxConstant):
         self._repr = re.sub(r"\[ ", "[", self._repr)
         self._repr = re.sub(r" \]", "]", self._repr)
 
-    def __str__(self):
+    def __str__(self) -> str:
+        """Represent the constant by its name."""
         return self._name
 
 
 class FiredrakeNamedConstant(FiredrakeConstant):
-    def __init__(self, name, value, domain=None):
-        FiredrakeConstant.__init__(self, value, domain)
+    """A firedrake.Constant with an additional name attribute."""
+
+    def __init__(
+        self, name: str, value: typing.Union[numbers.Number, typing.Iterable[numbers.Number]],
+        domain: ufl.AbstractDomain = None
+    ) -> None:
+        super().__init__(value, domain)
         self._name = name
 
         # Neglect the count argument when preparing the representation string, as we aim to
@@ -61,5 +86,6 @@ class FiredrakeNamedConstant(FiredrakeConstant):
         self._repr = re.sub(r"\[ ", "[", self._repr)
         self._repr = re.sub(r" \]", "]", self._repr)
 
-    def __str__(self):
+    def __str__(self) -> str:
+        """Represent the constant by its name."""
         return self._name

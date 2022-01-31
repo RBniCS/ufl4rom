@@ -3,9 +3,6 @@
 # This file is part of ufl4rom.
 #
 # SPDX-License-Identifier: LGPL-3.0-or-later
+"""ufl4rom test module."""
 
 from ufl4rom.test.enable_logging import enable_logging
-
-__all__ = [
-    "enable_logging"
-]
