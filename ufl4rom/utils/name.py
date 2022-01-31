@@ -38,7 +38,7 @@ def name(e: typing.Union[ufl.core.expr.Expr, ufl.Form, ufl.Integral], debug: boo
         e = ufl.algorithms.map_integrands.map_integrand_dags(nh, e)
     else:
         assert isinstance(e, ufl.core.expr.Expr)
-        e = ufl.corealg.map_dag.map_expr_dags(nh, [e])
+        e, = ufl.corealg.map_dag.map_expr_dags(nh, [e])
     # Obatain string representation
     repr_e = repr(e)
     if debug:

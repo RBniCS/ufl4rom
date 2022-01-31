@@ -485,3 +485,17 @@ def test_name_scalar_debug() -> None:
 
     a1 = f3 * f2 * ufl.inner(ufl.grad(u), ufl.grad(v)) * ufl.dx + f2 * u.dx(0) * v * ufl.dx + f1 * u * v * ufl.dx
     assert ufl4rom.utils.name(a1, debug=True) == "8bfbb685ff8a1bc1671e5e20e67d7622dc8b7f50"
+
+
+def test_name_scalar_expression() -> None:
+    """Test the first addend of form 1 to cover name computation of an UFL expression (rather than a form)."""
+    cell = ufl.triangle
+    element = ufl.FiniteElement("Lagrange", cell, 1)
+
+    u = ufl.TrialFunction(element)
+    v = ufl.TestFunction(element)
+    f2 = ufl4rom.utils.NamedCoefficient("parametrized coefficient 2", element)
+    f3 = ufl4rom.utils.NamedCoefficient("parametrized coefficient 3", element)
+
+    e1 = f3 * f2 * ufl.inner(ufl.grad(u), ufl.grad(v))
+    assert ufl4rom.utils.name(e1) == "41907fc024afa06d5e8817bdf6e3435db3517f3a"
