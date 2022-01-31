@@ -81,7 +81,8 @@ def test_expand_sum_real_sum_measures() -> None:
     assert ufl4rom.utils.expand_sum(form_before_expansion) == expected_form_after_expansion
 
 
-def test_expand_sum_vector_real_scalar_coefficients() -> None:
+@pytest.mark.parametrize("product", [ufl.inner, ufl.dot])
+def test_expand_sum_vector_real_scalar_coefficients(product: typing.Callable) -> None:
     """Test ufl4rom.utils.expand_sum when the form contains the sum of two vector real-valued coefficients."""
     cell = ufl.triangle
     scalar_element = ufl.FiniteElement("Lagrange", cell, 1)
@@ -93,10 +94,10 @@ def test_expand_sum_vector_real_scalar_coefficients() -> None:
     f2 = ufl.Coefficient(scalar_element)
 
     form_before_expansion = (
-        ufl.algorithms.renumbering.renumber_indices(ufl.inner((f1 + f2) * u, v) * ufl.dx))
+        ufl.algorithms.renumbering.renumber_indices(product((f1 + f2) * u, v) * ufl.dx))
     expected_form_after_expansion = (
-        ufl.algorithms.renumbering.renumber_indices(ufl.inner(f1 * u, v) * ufl.dx)
-        + ufl.algorithms.renumbering.renumber_indices(ufl.inner(f2 * u, v) * ufl.dx))
+        ufl.algorithms.renumbering.renumber_indices(product(f1 * u, v) * ufl.dx)
+        + ufl.algorithms.renumbering.renumber_indices(product(f2 * u, v) * ufl.dx))
 
     assert ufl4rom.utils.expand_sum(form_before_expansion) == expected_form_after_expansion
 
