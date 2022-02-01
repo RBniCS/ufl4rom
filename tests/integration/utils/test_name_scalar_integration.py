@@ -125,7 +125,7 @@ def test_name_scalar_13_dolfinx() -> None:
     f1 = dolfinx.fem.Function(scalar_V, name="parametrized coefficient 1, scalar")
     f2 = dolfinx.fem.Function(vector_V, name="parametrized coefficient 2, vector")
     f3 = dolfinx.fem.Function(tensor_V, name="parametrized coefficient 3, tensor")
-    c1 = ufl4rom.utils.DolfinxNamedConstant("parametrized constant 1, scalar", mesh, 1.0)
+    c1 = ufl4rom.utils.DolfinxNamedConstant("parametrized constant 1, scalar", 1.0, mesh)
     c2 = dolfinx.fem.Constant(mesh, np.array([[1.0, 2.0], [3.0, 4.0]], petsc4py.PETSc.ScalarType))
 
     dx = ufl.dx

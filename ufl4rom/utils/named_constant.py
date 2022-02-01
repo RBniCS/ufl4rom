@@ -52,7 +52,7 @@ class DolfinxNamedConstant(DolfinxConstant):
         self, name: str, value: typing.Union[numbers.Number, typing.Iterable[numbers.Number]],
         domain: ufl.AbstractDomain
     ) -> None:
-        super().__init__(value, domain)
+        super().__init__(domain, value)
         self._name = name
 
         # Neglect the count argument when preparing the representation string, as we aim to
