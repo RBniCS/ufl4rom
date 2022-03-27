@@ -129,8 +129,8 @@ class NameHandler(ufl.corealg.multifunction.MultiFunction):
             # Use the non-default name to return a NamedCoefficient
             return NamedCoefficient(o.name(), o._ufl_function_space)
         elif isinstance(o, DolfinxFunction):
-            # dolfinx default name for functions starts with f_
-            assert not o.name.startswith("f_"), "Please provide a name to the Function"
+            # dolfinx default name for functions is f
+            assert not o.name == "f", "Please provide a name to the Function"
             # Use the non-default name to return a NamedCoefficient
             return NamedCoefficient(o.name, o._ufl_function_space)
         elif isinstance(o, FiredrakeFunction):
