@@ -18,7 +18,7 @@ def enable_logging(loggers_and_levels: typing.Dict[logging.Logger, int]) -> typi
     def enable_logging_decorator(original_test: typing.Callable) -> typing.Callable:
         """Implement a decorator that enables logging."""
         @functools.wraps(original_test)
-        def decorated_test(*args: typing.Any, **kwargs: typing.Any) -> None:
+        def decorated_test(*args: typing.Any, **kwargs: typing.Any) -> None:  # noqa: ANN401
             """Set logging levels before running the test, and unset the afterwards."""
             for (logger, level) in loggers_and_levels.items():
                 logger.setLevel(level)
