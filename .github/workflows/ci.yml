@@ -41,7 +41,7 @@ jobs:
             container: quay.io/fenicsproject/dev
             setup_container: ""
           - backend: dolfinx-real
-            container: dolfinx/dolfinx
+            container: dolfinx/dolfinx:nightly
             setup_container: |
               . /usr/local/bin/dolfinx-real-mode
               echo "PETSC_ARCH=$PETSC_ARCH" >> $GITHUB_ENV
@@ -49,7 +49,7 @@ jobs:
               echo "PYTHONPATH=$PYTHONPATH" >> $GITHUB_ENV
               echo "PKG_CONFIG_PATH=$PKG_CONFIG_PATH" >> $GITHUB_ENV
           - backend: dolfinx-complex
-            container: dolfinx/dolfinx
+            container: dolfinx/dolfinx:nightly
             setup_container: |
               . /usr/local/bin/dolfinx-complex-mode
               echo "PETSC_ARCH=$PETSC_ARCH" >> $GITHUB_ENV
