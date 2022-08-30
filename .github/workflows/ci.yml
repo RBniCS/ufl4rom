@@ -38,7 +38,7 @@ jobs:
               apt install -y -qq git python3-mpi4py python3-pip
               python3 -m pip -q install git+https://github.com/FEniCS/ufl.git
           - backend: dolfin
-            container: quay.io/fenicsproject/dev
+            container: numericalpdes/base_images:fenics
             setup_container: ""
           - backend: dolfinx-real
             container: dolfinx/dolfinx:nightly
