@@ -46,7 +46,9 @@ def test_expand_sum_real_sum() -> None:
 
 
 @pytest.mark.parametrize("op", [ufl.grad, ufl.div, ufl.curl, ufl.nabla_grad, ufl.nabla_div])
-def test_expand_sum_real_sum_differential_operators(op: typing.Callable) -> None:
+def test_expand_sum_real_sum_differential_operators(  # type: ignore[no-any-unimported]
+    op: typing.Callable[[ufl.core.expr.Expr], ufl.core.expr.Expr]
+) -> None:
     """Test ufl4rom.utils.expand_sum when the form contains a differential operator of the arguments."""
     cell = ufl.triangle
     scalar_element = ufl.FiniteElement("Lagrange", cell, 1)
@@ -82,7 +84,9 @@ def test_expand_sum_real_sum_measures() -> None:
 
 
 @pytest.mark.parametrize("product", [ufl.inner, ufl.dot])
-def test_expand_sum_vector_real_scalar_coefficients(product: typing.Callable) -> None:
+def test_expand_sum_vector_real_scalar_coefficients(  # type: ignore[no-any-unimported]
+    product: typing.Callable[[ufl.core.expr.Expr, ufl.core.expr.Expr], ufl.core.expr.Expr]
+) -> None:
     """Test ufl4rom.utils.expand_sum when the form contains the sum of two vector real-valued coefficients."""
     cell = ufl.triangle
     scalar_element = ufl.FiniteElement("Lagrange", cell, 1)

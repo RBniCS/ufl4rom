@@ -5,47 +5,87 @@
 # SPDX-License-Identifier: LGPL-3.0-or-later
 """Import specialization of UFL classes from dolfin, dolfinx and firedrake backends."""
 
+import typing
+
+import ufl
+
 try:
-    import dolfin  # noqa: F401
+    import dolfin
 except ImportError:
-    class DolfinConstant(object):
+    DolfinScalarType = float
+
+    class DolfinConstant(ufl.Constant):  # type: ignore[misc, no-any-unimported]
         """Mock dolfin.Constant class."""
 
-        pass
+        def __init__(  # type: ignore[no-any-unimported]
+            self, value: typing.Union[DolfinScalarType, typing.Iterable[DolfinScalarType]],
+            cell: typing.Optional[ufl.Cell] = None, name: typing.Optional[str] = None
+        ) -> None:  # pragma: no cover
+            raise RuntimeError("Cannot use a dolfin constant when dolfin is not installed")
 
-    class DolfinFunction(object):
+    class DolfinFunction(ufl.Coefficient):  # type: ignore[misc, no-any-unimported]
         """Mock dolfin.Function class."""
 
-        pass
+        def name(self) -> str:  # pragma: no cover
+            """Get function name."""
+            raise RuntimeError("Cannot use a dolfin function when dolfin is not installed")
 else:
-    from dolfin import Constant as DolfinConstant, Function as DolfinFunction  # noqa: F401, I2041, I2045
+    DolfinConstant = dolfin.Constant  # type: ignore
+    DolfinFunction = dolfin.Function  # type: ignore
+    DolfinScalarType = float  # type: ignore
 
 try:
-    import dolfinx  # noqa: F401
+    import dolfinx
 except ImportError:
-    class DolfinxConstant(object):
+    DolfinxScalarType = float
+
+    class DolfinxConstant(ufl.Constant):  # type: ignore[misc, no-any-unimported]
         """Mock dolfinx.fem.Constant class."""
 
-        pass
+        def __init__(  # type: ignore[no-any-unimported]
+            self, domain: ufl.AbstractDomain,
+            value: typing.Union[DolfinxScalarType, typing.Iterable[DolfinxScalarType]]
+        ) -> None:  # pragma: no cover
+            raise RuntimeError("Cannot use a dolfinx constant when dolfinx is not installed")
 
-    class DolfinxFunction(object):
+    class DolfinxFunction(ufl.Coefficient):  # type: ignore[misc, no-any-unimported]
         """Mock dolfinx.fem.Function class."""
 
-        pass
+        @property
+        def name(self) -> str:  # pragma: no cover
+            """Get function name."""
+            raise RuntimeError("Cannot use a dolfinx function when dolfin is not installed")
 else:
-    from dolfinx.fem import Constant as DolfinxConstant, Function as DolfinxFunction  # noqa: F401, I2041, I2045
+    import dolfinx.fem
+    import petsc4py.PETSc
+
+    DolfinxConstant = dolfinx.fem.Constant  # type: ignore
+    DolfinxFunction = dolfinx.fem.Function  # type: ignore
+    DolfinxScalarType = petsc4py.PETSc.ScalarType  # type: ignore
 
 try:
-    import firedrake  # noqa: F401
+    import firedrake
 except ImportError:
-    class FiredrakeConstant(object):
+    FiredrakeScalarType = float
+
+    class FiredrakeConstant(ufl.Constant):  # type: ignore[misc, no-any-unimported]
         """Mock firedrake.Constant class."""
 
-        pass
+        def __init__(  # type: ignore[no-any-unimported]
+            self, value: typing.Union[FiredrakeScalarType, typing.Iterable[FiredrakeScalarType]],
+            domain: typing.Optional[ufl.AbstractDomain] = None
+        ) -> None:  # pragma: no cover
+            raise RuntimeError("Cannot use a firedrake constant when firedrake is not installed")
 
-    class FiredrakeFunction(object):
+    class FiredrakeFunction(ufl.Coefficient):  # type: ignore[misc, no-any-unimported]
         """Mock firedrake.Function class."""
 
-        pass
+        def name(self) -> str:  # pragma: no cover
+            """Get function name."""
+            raise RuntimeError("Cannot use a firedrake function when dolfin is not installed")
 else:
-    from firedrake import Constant as FiredrakeConstant, Function as FiredrakeFunction  # noqa: F401, I2041, I2045
+    import petsc4py.PETSc
+
+    FiredrakeConstant = firedrake.Constant  # type: ignore
+    FiredrakeFunction = firedrake.Function  # type: ignore
+    FiredrakeScalarType = petsc4py.PETSc.ScalarType  # type: ignore

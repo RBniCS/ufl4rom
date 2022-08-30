@@ -10,12 +10,16 @@ import logging
 import sys
 import typing
 
+OriginalTestType = typing.Callable[..., typing.Any]
 
-def enable_logging(loggers_and_levels: typing.Dict[logging.Logger, int]) -> typing.Callable:
+
+def enable_logging(
+    loggers_and_levels: typing.Dict[logging.Logger, int]
+) -> typing.Callable[[OriginalTestType], OriginalTestType]:
     """Return a decorator that enables logging."""
     logging.basicConfig(stream=sys.stdout)
 
-    def enable_logging_decorator(original_test: typing.Callable) -> typing.Callable:
+    def enable_logging_decorator(original_test: OriginalTestType) -> OriginalTestType:
         """Implement a decorator that enables logging."""
         @functools.wraps(original_test)
         def decorated_test(*args: typing.Any, **kwargs: typing.Any) -> None:  # noqa: ANN401

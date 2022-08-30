@@ -5,20 +5,21 @@
 # SPDX-License-Identifier: LGPL-3.0-or-later
 """Add a name to ufl.Constant and its specialization offered by backends."""
 
-import numbers
 import re
 import typing
 
 import ufl
 
-from ufl4rom.utils.backends import DolfinConstant, DolfinxConstant, FiredrakeConstant
+from ufl4rom.utils.backends import (
+    DolfinConstant, DolfinScalarType, DolfinxConstant, DolfinxScalarType, FiredrakeConstant, FiredrakeScalarType)
 
 
-class NamedConstant(ufl.Constant):
+class NamedConstant(ufl.Constant):  # type: ignore[misc, no-any-unimported]
     """An ufl.Constant with an additional name attribute."""
 
-    def __init__(
-        self, name: str, domain: ufl.AbstractDomain, shape: typing.Tuple[int] = (), count: int = None
+    def __init__(  # type: ignore[no-any-unimported]
+        self, name: str, domain: ufl.AbstractDomain, shape: typing.Tuple[int, ...] = (),
+        count: typing.Optional[int] = None
     ) -> None:
         super().__init__(domain, shape, count)
         self._name = name
@@ -39,8 +40,9 @@ class NamedConstant(ufl.Constant):
 class DolfinNamedConstant(DolfinConstant):
     """A dolfin.Constant with constructor arguments in a slighlty different order."""
 
-    def __init__(
-        self, name: str, value: typing.Union[numbers.Real, typing.Iterable[numbers.Real]], cell: ufl.Cell = None
+    def __init__(  # type: ignore[no-any-unimported]
+        self, name: str, value: typing.Union[DolfinScalarType, typing.Iterable[DolfinScalarType]],
+        cell: typing.Optional[ufl.Cell] = None
     ) -> None:
         super().__init__(value, cell, name)
 
@@ -48,8 +50,8 @@ class DolfinNamedConstant(DolfinConstant):
 class DolfinxNamedConstant(DolfinxConstant):
     """A dolfinx.Constant with an additional name attribute."""
 
-    def __init__(
-        self, name: str, value: typing.Union[numbers.Number, typing.Iterable[numbers.Number]],
+    def __init__(  # type: ignore[no-any-unimported]
+        self, name: str, value: typing.Union[DolfinxScalarType, typing.Iterable[DolfinxScalarType]],
         domain: ufl.AbstractDomain
     ) -> None:
         super().__init__(domain, value)
@@ -71,9 +73,9 @@ class DolfinxNamedConstant(DolfinxConstant):
 class FiredrakeNamedConstant(FiredrakeConstant):
     """A firedrake.Constant with an additional name attribute."""
 
-    def __init__(
-        self, name: str, value: typing.Union[numbers.Number, typing.Iterable[numbers.Number]],
-        domain: ufl.AbstractDomain = None
+    def __init__(  # type: ignore[no-any-unimported]
+        self, name: str, value: typing.Union[FiredrakeScalarType, typing.Iterable[FiredrakeScalarType]],
+        domain: typing.Optional[ufl.AbstractDomain] = None
     ) -> None:
         super().__init__(value, domain)
         self._name = name

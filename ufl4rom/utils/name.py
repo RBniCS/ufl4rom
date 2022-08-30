@@ -23,7 +23,9 @@ from ufl4rom.utils.named_constant import (
     DolfinNamedConstant, DolfinxNamedConstant, FiredrakeNamedConstant, NamedConstant)
 
 
-def name(e: typing.Union[ufl.core.expr.Expr, ufl.Form, ufl.Integral], debug: bool = False) -> str:
+def name(  # type: ignore[no-any-unimported]
+    e: typing.Union[ufl.core.expr.Expr, ufl.Form, ufl.Integral], debug: bool = False
+) -> str:
     """Compute a stable name for an expression, an integral or a form."""
     if debug:
         print(f"Original expression:\n{e}\n")
@@ -65,12 +67,12 @@ def name(e: typing.Union[ufl.core.expr.Expr, ufl.Form, ufl.Integral], debug: boo
     return sha
 
 
-class NameHandler(ufl.corealg.multifunction.MultiFunction):
+class NameHandler(ufl.corealg.multifunction.MultiFunction):  # type: ignore[misc, no-any-unimported]
     """Replace named objects, or objects with a deducible name, in an expression."""
 
     expr = ufl.corealg.multifunction.MultiFunction.reuse_if_untouched
 
-    def constant(self, o: ufl.Constant) -> NamedConstant:
+    def constant(self, o: ufl.Constant) -> NamedConstant:  # type: ignore[no-any-unimported]
         """
         Replace a ufl Constant with a ufl4rom NamedConstant, when possible.
 
@@ -98,7 +100,7 @@ class NameHandler(ufl.corealg.multifunction.MultiFunction):
             raise RuntimeError(
                 "The case of plain UFL constants is not handled, because its value cannot be extracted")
 
-    def coefficient(self, o: ufl.Coefficient) -> NamedCoefficient:
+    def coefficient(self, o: ufl.Coefficient) -> NamedCoefficient:  # type: ignore[no-any-unimported]
         """
         Replace a ufl Coefficient with a ufl4rom NamedCoefficient, when possible.
 

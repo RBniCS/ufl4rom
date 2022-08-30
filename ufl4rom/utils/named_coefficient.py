@@ -6,15 +6,18 @@
 """Add a name to ufl.Coefficient."""
 
 import re
+import typing
 
 import ufl
 import ufl.functionspace
 
 
-class NamedCoefficient(ufl.Coefficient):
+class NamedCoefficient(ufl.Coefficient):  # type: ignore[misc, no-any-unimported]
     """An ufl.Coefficient with an additional name attribute."""
 
-    def __init__(self, name: str, function_space: ufl.functionspace.AbstractFunctionSpace, count: int = None) -> None:
+    def __init__(  # type: ignore[no-any-unimported]
+        self, name: str, function_space: ufl.functionspace.AbstractFunctionSpace, count: typing.Optional[int] = None
+    ) -> None:
         super().__init__(function_space, count)
         self._name = name
 

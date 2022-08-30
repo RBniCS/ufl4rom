@@ -6,6 +6,7 @@
 """Expand a form continaing the integral of a sum to contain instead the sum of several integrals."""
 
 import itertools
+import typing
 
 import ufl
 import ufl.algorithms.map_integrands
@@ -14,7 +15,7 @@ import ufl.core.multiindex
 import ufl.corealg.multifunction
 
 
-def expand_sum(form: ufl.Form) -> ufl.Form:
+def expand_sum(form: ufl.Form) -> ufl.Form:  # type: ignore[no-any-unimported]
     """
     Expand a form continaing the integral of a sum to contain instead the sum of several integrals.
 
@@ -32,69 +33,99 @@ def expand_sum(form: ufl.Form) -> ufl.Form:
     return ufl.Form(expanded_split_form_integrals)
 
 
-class SumExpander(ufl.corealg.multifunction.MultiFunction):
+class SumExpander(ufl.corealg.multifunction.MultiFunction):  # type: ignore[misc, no-any-unimported]
     """UFL MultiFunction that carries out the sum expansion."""
 
     def __init__(self) -> None:
         super().__init__()
-        self.ufl_to_replaced_ufl = dict()
-        self.ufl_to_split_ufl = dict()
+        self.ufl_to_replaced_ufl: typing.Dict[  # type: ignore[no-any-unimported]
+            ufl.core.expr.Expr, ufl.core.expr.Expr] = dict()
+        self.ufl_to_split_ufl: typing.Dict[  # type: ignore[no-any-unimported]
+            ufl.core.expr.Expr, typing.List[ufl.core.expr.Expr]] = dict()
 
     expr = ufl.corealg.multifunction.MultiFunction.reuse_if_untouched
 
-    def product(self, o: ufl.core.expr.Expr, *ops: ufl.core.expr.Expr) -> ufl.core.expr.Expr:
+    def product(  # type: ignore[no-any-unimported]
+        self, o: ufl.core.expr.Expr, *ops: ufl.core.expr.Expr
+    ) -> ufl.core.expr.Expr:
         """Transorm products as multilinear operators."""
         return self._transform_multilinear_operator(o, *ops)
 
-    def conj(self, o: ufl.core.expr.Expr, *ops: ufl.core.expr.Expr) -> ufl.core.expr.Expr:
+    def conj(  # type: ignore[no-any-unimported]
+        self, o: ufl.core.expr.Expr, *ops: ufl.core.expr.Expr
+    ) -> ufl.core.expr.Expr:
         """Transorm conjugation as multilinear operators."""
         return self._transform_multilinear_operator(o, *ops)
 
-    def real(self, o: ufl.core.expr.Expr, *ops: ufl.core.expr.Expr) -> ufl.core.expr.Expr:
+    def real(  # type: ignore[no-any-unimported]
+        self, o: ufl.core.expr.Expr, *ops: ufl.core.expr.Expr
+    ) -> ufl.core.expr.Expr:
         """Transorm real part as multilinear operators."""
         return self._transform_multilinear_operator(o, *ops)
 
-    def imag(self, o: ufl.core.expr.Expr, *ops: ufl.core.expr.Expr) -> ufl.core.expr.Expr:
+    def imag(  # type: ignore[no-any-unimported]
+        self, o: ufl.core.expr.Expr, *ops: ufl.core.expr.Expr
+    ) -> ufl.core.expr.Expr:
         """Transorm imaginary part as multilinear operators."""
         return self._transform_multilinear_operator(o, *ops)
 
-    def inner(self, o: ufl.core.expr.Expr, *ops: ufl.core.expr.Expr) -> ufl.core.expr.Expr:
+    def inner(  # type: ignore[no-any-unimported]
+        self, o: ufl.core.expr.Expr, *ops: ufl.core.expr.Expr
+    ) -> ufl.core.expr.Expr:
         """Transorm inner product as multilinear operators."""
         return self._transform_multilinear_operator(o, *ops)
 
-    def dot(self, o: ufl.core.expr.Expr, *ops: ufl.core.expr.Expr) -> ufl.core.expr.Expr:
+    def dot(  # type: ignore[no-any-unimported]
+        self, o: ufl.core.expr.Expr, *ops: ufl.core.expr.Expr
+    ) -> ufl.core.expr.Expr:
         """Transorm dot product as multilinear operators."""
         return self._transform_multilinear_operator(o, *ops)
 
-    def grad(self, o: ufl.core.expr.Expr, *ops: ufl.core.expr.Expr) -> ufl.core.expr.Expr:
+    def grad(  # type: ignore[no-any-unimported]
+        self, o: ufl.core.expr.Expr, *ops: ufl.core.expr.Expr
+    ) -> ufl.core.expr.Expr:
         """Transorm gradient as multilinear operators."""
         return self._transform_multilinear_operator(o, *ops)
 
-    def div(self, o: ufl.core.expr.Expr, *ops: ufl.core.expr.Expr) -> ufl.core.expr.Expr:
+    def div(  # type: ignore[no-any-unimported]
+        self, o: ufl.core.expr.Expr, *ops: ufl.core.expr.Expr
+    ) -> ufl.core.expr.Expr:
         """Transorm divergence as multilinear operators."""
         return self._transform_multilinear_operator(o, *ops)
 
-    def curl(self, o: ufl.core.expr.Expr, *ops: ufl.core.expr.Expr) -> ufl.core.expr.Expr:
+    def curl(  # type: ignore[no-any-unimported]
+        self, o: ufl.core.expr.Expr, *ops: ufl.core.expr.Expr
+    ) -> ufl.core.expr.Expr:
         """Transorm curl as multilinear operators."""
         return self._transform_multilinear_operator(o, *ops)
 
-    def nabla_grad(self, o: ufl.core.expr.Expr, *ops: ufl.core.expr.Expr) -> ufl.core.expr.Expr:
+    def nabla_grad(  # type: ignore[no-any-unimported]
+        self, o: ufl.core.expr.Expr, *ops: ufl.core.expr.Expr
+    ) -> ufl.core.expr.Expr:
         """Transorm gradient (different index convention) as multilinear operators."""
         return self._transform_multilinear_operator(o, *ops)
 
-    def nabla_div(self, o: ufl.core.expr.Expr, *ops: ufl.core.expr.Expr) -> ufl.core.expr.Expr:
+    def nabla_div(  # type: ignore[no-any-unimported]
+        self, o: ufl.core.expr.Expr, *ops: ufl.core.expr.Expr
+    ) -> ufl.core.expr.Expr:
         """Transorm divergence (different index convention) as multilinear operators."""
         return self._transform_multilinear_operator(o, *ops)
 
-    def indexed(self, o: ufl.core.expr.Expr, *ops: ufl.core.expr.Expr) -> ufl.core.expr.Expr:
+    def indexed(  # type: ignore[no-any-unimported]
+        self, o: ufl.core.expr.Expr, *ops: ufl.core.expr.Expr
+    ) -> ufl.core.expr.Expr:
         """Transorm list components as multilinear operators."""
         return self._transform_multilinear_operator(o, *ops)
 
-    def component_tensor(self, o: ufl.core.expr.Expr, *ops: ufl.core.expr.Expr) -> ufl.core.expr.Expr:
+    def component_tensor(  # type: ignore[no-any-unimported]
+        self, o: ufl.core.expr.Expr, *ops: ufl.core.expr.Expr
+    ) -> ufl.core.expr.Expr:
         """Transorm tensor components as multilinear operators."""
         return self._transform_multilinear_operator(o, *ops)
 
-    def _transform_multilinear_operator(self, o: ufl.core.expr.Expr, *ops: ufl.core.expr.Expr) -> ufl.core.expr.Expr:
+    def _transform_multilinear_operator(  # type: ignore[no-any-unimported]
+        self, o: ufl.core.expr.Expr, *ops: ufl.core.expr.Expr
+    ) -> ufl.core.expr.Expr:
         """Split sums in multilinear operators."""
         if o not in self.ufl_to_replaced_ufl:
             split_ops = list()
@@ -111,7 +142,7 @@ class SumExpander(ufl.corealg.multifunction.MultiFunction):
                 self.ufl_to_replaced_ufl[o] = o
         return self.ufl_to_replaced_ufl[o]
 
-    def split_sum(self, input_: ufl.core.expr.Expr) -> ufl.core.expr.Expr:
+    def split_sum(self, input_: ufl.core.expr.Expr) -> ufl.core.expr.Expr:  # type: ignore[no-any-unimported]
         """Split sums in an UFL expression."""
         if input_ not in self.ufl_to_split_ufl:
             output = list()
