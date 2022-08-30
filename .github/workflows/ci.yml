@@ -78,9 +78,10 @@ jobs:
           BACKEND=backend_${BACKEND%-*}
           python3 -m pip install .[${BACKEND},docs,lint,tests]
         shell: bash
-      - name: Run flake8 checks
+      - name: Run flake8 and mypy checks
         run: |
           python3 -m flake8 .
+          python3 -m mypy .
       - name: Run documentation generation
         run: |
           cd docs && make html
