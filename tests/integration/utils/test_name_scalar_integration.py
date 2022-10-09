@@ -52,7 +52,7 @@ def test_name_scalar_1_dolfinx() -> None:
     inner = ufl.inner
 
     a1 = f3 * f2 * inner(grad(u), grad(v)) * dx + f2 * u.dx(0) * v * dx + f1 * u * v * dx
-    assert ufl4rom.utils.name(a1) == "971696bc0259455b4145dc94396c3a2d6d2594dc"
+    assert ufl4rom.utils.name(a1) == "a3ce3d9e75bbeed979cabde221e7f7244f1aad69"
 
 
 def test_name_scalar_1_firedrake() -> None:
@@ -137,9 +137,9 @@ def test_name_scalar_13_dolfinx() -> None:
         + c1 * f1 * u * v * dx
     )
     if np.issubdtype(petsc4py.PETSc.ScalarType, np.complexfloating):  # names differ due to different c2 dtype
-        expected_name = "7e8d09a9353f81eb4d73001c3c69c185714708df"
+        expected_name = "1de36d1af3efc3b9847dfb667da993cf8b499f27"
     else:
-        expected_name = "148abf0ce5b66db179e05a6f9c03880cd4dfc32b"
+        expected_name = "d6b43e53c2e3865badaaab0a6fe6b54d51553107"
     assert ufl4rom.utils.name(a13) == expected_name
 
 
