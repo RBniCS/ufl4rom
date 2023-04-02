@@ -97,12 +97,6 @@ jobs:
           name: coverage-${{ matrix.backend }}
           path: .coverage*
           retention-days: 1
-      - name: Warn if scheduled workflow is about to be disabled
-        if: github.repository == 'RBniCS/ufl4rom' && github.ref == 'refs/heads/main' && github.event_name == 'schedule'
-        uses: fem-on-colab/warn-workflow-about-to-be-disabled-action@main
-        with:
-          workflow-filename: ci.yml
-          days-elapsed: 50
 
   combine_coverage_reports:
     runs-on: ubuntu-latest
@@ -122,3 +116,14 @@ jobs:
         run: |
           python3 -m coverage combine coverage-*/.coverage*
           python3 -m coverage report --fail-under=100 --show-missing --skip-covered
+
+  warn:
+    runs-on: ubuntu-latest
+    if: github.repository == 'RBniCS/ufl4rom' && github.ref == 'refs/heads/main' && github.event_name == 'schedule'
+    steps:
+      - uses: actions/checkout@v3
+      - name: Warn if scheduled workflow is about to be disabled
+        uses: fem-on-colab/warn-workflow-about-to-be-disabled-action@main
+        with:
+          workflow-filename: ci.yml
+          days-elapsed: 50
