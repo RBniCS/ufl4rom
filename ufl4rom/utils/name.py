@@ -59,8 +59,8 @@ def name(  # type: ignore[no-any-unimported]
         repr_e
     )
     repr_e = re.sub(  # FEniCSx
-        r"Mesh\(VectorElement\(Basix element \(P, (.+?), (.+?), (.+?), (.+?), (.+?)\), (.+?)\), (.+?)\)",
-        r"Mesh(VectorElement(Basix element (P, \1, \2, \3, \4, \5), \6))",
+        r"Mesh\(blocked element \(Basix element \(P, (.+?), (.+?), (.+?), (.+?), (.+?)\), (.+?)\), (.+?)\)",
+        r"Mesh(blocked element (Basix element (P, \1, \2, \3, \4, \5), \6))",
         repr_e
     )
     if debug:
