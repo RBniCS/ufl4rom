@@ -221,7 +221,7 @@ def test_name_vector_10() -> None:
         ufl.inner(f3 * c1 * f4 * ufl.grad(u), ufl.grad(v)) * ufl.dx + ufl.inner(ufl.grad(u) * f2, v) * ufl.dx
         + f1 * ufl.inner(u, v) * ufl.dx
     )
-    assert ufl4rom.utils.name(a10) == "0dd7da61f92c0048bccecf50652d9b70070401b7"
+    assert ufl4rom.utils.name(a10) == "0fecd0e3a8eb31e99c24f80c9334fe2c65478354"
 
 
 def test_name_vector_11() -> None:

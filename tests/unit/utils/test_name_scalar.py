@@ -229,7 +229,7 @@ def test_name_scalar_13() -> None:
         ufl.inner(c2 * f3 * c1 * ufl.grad(u), ufl.grad(v)) * ufl.dx + ufl.inner(c1 * f2, ufl.grad(u)) * v * ufl.dx
         + c1 * f1 * u * v * ufl.dx
     )
-    assert ufl4rom.utils.name(a13) == "c60c4f77d47990fa8d42de6719f60f54f71b9161"
+    assert ufl4rom.utils.name(a13) == "17113f84f7cef86a49fe009864882cba43ff0c97"
 
 
 def test_name_scalar_14() -> None:
