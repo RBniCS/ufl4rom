@@ -10,26 +10,6 @@ import pytest
 import ufl4rom.utils
 
 
-def test_name_scalar_1_dolfin() -> None:
-    """Test a basic advection-diffusion-reaction parametrized form, with all parametrized dolfin coefficients."""
-    dolfin = pytest.importorskip("dolfin")
-    mesh = dolfin.UnitSquareMesh(2, 2)
-    V = dolfin.FunctionSpace(mesh, "Lagrange", 1)
-
-    u = dolfin.TrialFunction(V)
-    v = dolfin.TestFunction(V)
-    f1 = dolfin.Function(V, name="parametrized coefficient 1")
-    f2 = dolfin.Function(V, name="parametrized coefficient 2")
-    f3 = dolfin.Function(V, name="parametrized coefficient 3")
-
-    dx = dolfin.dx
-    grad = dolfin.grad
-    inner = dolfin.inner
-
-    a1 = f3 * f2 * inner(grad(u), grad(v)) * dx + f2 * u.dx(0) * v * dx + f1 * u * v * dx
-    assert ufl4rom.utils.name(a1) == "971696bc0259455b4145dc94396c3a2d6d2594dc"
-
-
 def test_name_scalar_1_dolfinx() -> None:
     """Test a basic advection-diffusion-reaction parametrized form, with all parametrized dolfinx coefficients."""
     ufl = pytest.importorskip("ufl")
@@ -73,34 +53,6 @@ def test_name_scalar_1_firedrake() -> None:
 
     a1 = f3 * f2 * inner(grad(u), grad(v)) * dx + f2 * u.dx(0) * v * dx + f1 * u * v * dx
     assert ufl4rom.utils.name(a1) == "72260f6a6b5ad3fee82cc86ac80bf38e5f117554"
-
-
-def test_name_scalar_13_dolfin() -> None:
-    """We now introduce dolfin constants in the expression."""
-    dolfin = pytest.importorskip("dolfin")
-
-    mesh = dolfin.UnitSquareMesh(2, 2)
-    scalar_V = dolfin.FunctionSpace(mesh, "Lagrange", 1)
-    vector_V = dolfin.VectorFunctionSpace(mesh, "Lagrange", 1)
-    tensor_V = dolfin.TensorFunctionSpace(mesh, "Lagrange", 1)
-
-    u = dolfin.TrialFunction(scalar_V)
-    v = dolfin.TestFunction(scalar_V)
-    f1 = dolfin.Function(scalar_V, name="parametrized coefficient 1, scalar")
-    f2 = dolfin.Function(vector_V, name="parametrized coefficient 2, vector")
-    f3 = dolfin.Function(tensor_V, name="parametrized coefficient 3, tensor")
-    c1 = ufl4rom.utils.DolfinNamedConstant("parametrized constant 1, scalar", 1.0)
-    c2 = dolfin.Constant(((1.0, 2.0), (3.0, 4.0)))
-
-    dx = dolfin.dx
-    grad = dolfin.grad
-    inner = dolfin.inner
-
-    a13 = (
-        inner(c2 * f3 * c1 * grad(u), grad(v)) * dx + inner(c1 * f2, grad(u)) * v * dx
-        + c1 * f1 * u * v * dx
-    )
-    assert ufl4rom.utils.name(a13) == "06b6fad151908da18f966cfcf17b2ecf6850006c"
 
 
 def test_name_scalar_13_dolfinx() -> None:
@@ -176,28 +128,6 @@ def test_name_scalar_13_firedrake() -> None:
     else:
         expected_name = "e869ce69d844731a95d97a5d560cd833c61335d1"
     assert ufl4rom.utils.name(a13) == expected_name
-
-
-def test_name_scalar_failure_coefficient_dolfin() -> None:
-    """Test a variation of form 1 that will fail due to not having used (dolfin) named coefficients."""
-    dolfin = pytest.importorskip("dolfin")
-    mesh = dolfin.UnitSquareMesh(2, 2)
-    V = dolfin.FunctionSpace(mesh, "Lagrange", 1)
-
-    u = dolfin.TrialFunction(V)
-    v = dolfin.TestFunction(V)
-    f1 = dolfin.Function(V)
-    f2 = dolfin.Function(V)
-    f3 = dolfin.Function(V)
-
-    dx = dolfin.dx
-    grad = dolfin.grad
-    inner = dolfin.inner
-
-    a1 = f3 * f2 * inner(grad(u), grad(v)) * dx + f2 * u.dx(0) * v * dx + f1 * u * v * dx
-    with pytest.raises(AssertionError) as excinfo:
-        ufl4rom.utils.name(a1)
-    assert str(excinfo.value) == "Please provide a name to the Function"
 
 
 def test_name_scalar_failure_coefficient_dolfinx() -> None:

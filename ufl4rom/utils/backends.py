@@ -3,36 +3,11 @@
 # This file is part of ufl4rom.
 #
 # SPDX-License-Identifier: LGPL-3.0-or-later
-"""Import specialization of UFL classes from dolfin, dolfinx and firedrake backends."""
+"""Import specialization of UFL classes from dolfinx and firedrake backends."""
 
 import typing
 
 import ufl
-
-try:
-    import dolfin
-except ImportError:
-    DolfinScalarType = float
-
-    class DolfinConstant(ufl.Constant):  # type: ignore[misc, no-any-unimported]
-        """Mock dolfin.Constant class."""
-
-        def __init__(  # type: ignore[no-any-unimported]
-            self, value: typing.Union[DolfinScalarType, typing.Iterable[DolfinScalarType]],
-            cell: typing.Optional[ufl.Cell] = None, name: typing.Optional[str] = None
-        ) -> None:  # pragma: no cover
-            raise RuntimeError("Cannot use a dolfin constant when dolfin is not installed")
-
-    class DolfinFunction(ufl.Coefficient):  # type: ignore[misc, no-any-unimported]
-        """Mock dolfin.Function class."""
-
-        def name(self) -> str:  # pragma: no cover
-            """Get function name."""
-            raise RuntimeError("Cannot use a dolfin function when dolfin is not installed")
-else:
-    DolfinConstant = dolfin.Constant  # type: ignore
-    DolfinFunction = dolfin.Function  # type: ignore
-    DolfinScalarType = float  # type: ignore
 
 try:
     import dolfinx

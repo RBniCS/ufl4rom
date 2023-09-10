@@ -10,8 +10,7 @@ import typing
 
 import ufl
 
-from ufl4rom.utils.backends import (
-    DolfinConstant, DolfinScalarType, DolfinxConstant, DolfinxScalarType, FiredrakeConstant, FiredrakeScalarType)
+from ufl4rom.utils.backends import DolfinxConstant, DolfinxScalarType, FiredrakeConstant, FiredrakeScalarType
 
 
 class NamedConstant(ufl.Constant):  # type: ignore[misc, no-any-unimported]
@@ -35,16 +34,6 @@ class NamedConstant(ufl.Constant):  # type: ignore[misc, no-any-unimported]
     def __str__(self) -> str:  # pragma: no cover
         """Return a string representation which is independent on internal counters."""
         return self._name
-
-
-class DolfinNamedConstant(DolfinConstant):
-    """A dolfin.Constant with constructor arguments in a slighlty different order."""
-
-    def __init__(  # type: ignore[no-any-unimported]
-        self, name: str, value: typing.Union[DolfinScalarType, typing.Iterable[DolfinScalarType]],
-        cell: typing.Optional[ufl.Cell] = None
-    ) -> None:
-        super().__init__(value, cell, name)
 
 
 class DolfinxNamedConstant(DolfinxConstant):
