@@ -18,7 +18,7 @@ import ufl.corealg.multifunction
 
 from ufl4rom.utils.backends import DolfinxConstant, DolfinxFunction, FiredrakeConstant, FiredrakeFunction
 from ufl4rom.utils.named_coefficient import NamedCoefficient
-from ufl4rom.utils.named_constant import DolfinxNamedConstant, FiredrakeNamedConstant, NamedConstant
+from ufl4rom.utils.named_constant import DolfinxNamedConstant, FiredrakeNamedConstant, NamedConstant, NamedConstantValue
 
 
 def name(  # type: ignore[no-any-unimported]
@@ -84,7 +84,7 @@ class NameHandler(ufl.corealg.multifunction.MultiFunction):  # type: ignore[misc
 
         Note that the following backends:
         * firedrake
-        actually implement their Constant objects inheriting from ufl Coefficient, so these cases are considered
+        actually implement their Constant objects inheriting from ufl ConstantValue, so these cases are considered
         in the method below.
 
         Raises an error when an unnamed ufl Constant is provided.
@@ -102,6 +102,31 @@ class NameHandler(ufl.corealg.multifunction.MultiFunction):  # type: ignore[misc
             raise RuntimeError(
                 "The case of plain UFL constants is not handled, because its value cannot be extracted")
 
+    def constant_value(  # type: ignore[no-any-unimported]
+        self, o: ufl.constantvalue.ConstantValue
+    ) -> ufl.constantvalue.ConstantValue:
+        """
+        Replace a ufl ConstantValue with a ufl4rom NamedConstantValue, when possible.
+
+        Processes the following backends:
+        * firedrake: preserves name if provided, otherwise sets the name to the current value of the constant
+
+        Return the constant value unchanged when an unnamed ufl ConstantValue object is provided,
+        since it is safe to do so because that object is not counted.
+        """
+        if isinstance(o, NamedConstantValue):
+            return o
+        elif isinstance(o, FiredrakeConstant):
+            # firedrake subclass ufl.ConstantValue (rather than ufl.Constant) in their definition
+            # of a Constant value.
+            if isinstance(o, FiredrakeNamedConstant):
+                return NamedConstantValue(str(o), o._ufl_shape)
+            else:
+                # Both of them provide a values attribute: use it to define a new NamedCoefficient
+                return NamedConstantValue(str(o.values()), o._ufl_shape)
+        else:
+            return o
+
     def coefficient(self, o: ufl.Coefficient) -> NamedCoefficient:  # type: ignore[no-any-unimported]
         """
         Replace a ufl Coefficient with a ufl4rom NamedCoefficient, when possible.
@@ -110,21 +135,10 @@ class NameHandler(ufl.corealg.multifunction.MultiFunction):  # type: ignore[misc
         * dolfinx: preserves name if provided, otherwise raises an error
         * firedrake: preserves name if provided, otherwise raises an error
 
-        Processes the following backends which use Coefficient to implement actually Constant objects:
-        * firedrake: preserves name if provided, otherwise sets the name to the current value of the constant
-
         Raises an error also when an unnamed ufl Coefficient is provided.
         """
         if isinstance(o, NamedCoefficient):
             return o
-        elif isinstance(o, FiredrakeConstant):
-            # firedrake subclass ufl.Coefficient (rather than ufl.Constant) in their definition
-            # of a Constant value.
-            if isinstance(o, FiredrakeNamedConstant):
-                return NamedCoefficient(str(o), o._ufl_function_space)
-            else:
-                # Both of them provide a values attribute: use it to define a new NamedCoefficient
-                return NamedCoefficient(str(o.values()), o._ufl_function_space)
         elif isinstance(o, DolfinxFunction):
             # dolfinx default name for functions is f
             assert not o.name == "f", "Please provide a name to the Function"

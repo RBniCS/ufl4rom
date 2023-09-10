@@ -5,6 +5,8 @@
 # SPDX-License-Identifier: LGPL-3.0-or-later
 """Add a name to ufl.Constant and its specialization offered by backends."""
 
+from __future__ import annotations
+
 import re
 import typing
 
@@ -36,6 +38,37 @@ class NamedConstant(ufl.Constant):  # type: ignore[misc, no-any-unimported]
         return self._name
 
 
+class NamedConstantValue(ufl.constantvalue.ConstantValue):  # type: ignore[misc, no-any-unimported]
+    """An ufl.constantvalue.ConstantValue with an additional name attribute."""
+
+    def __init__(
+        self, name: str, shape: typing.Tuple[int, ...] = ()
+    ) -> None:
+        super().__init__()
+        self._name = name
+        assert not hasattr(self, "_ufl_shape")
+        self._ufl_shape = shape
+
+        # Represent the constant value by its name and its shape
+        self._repr = "NamedConstantValue({}, {})".format(repr(self._name), repr(self._ufl_shape))
+        self._repr = re.sub(" +", " ", self._repr)
+        self._repr = re.sub(r"\[ ", "[", self._repr)
+        self._repr = re.sub(r" \]", "]", self._repr)
+
+    def __str__(self) -> str:  # pragma: no cover
+        """Return the name of the constant value as a string representation."""
+        return self._name
+
+    def __repr__(self) -> str:  # pragma: no cover
+        """Return string representation this object can be reconstructed from."""
+        return self._repr
+
+    @property
+    def ufl_shape(self) -> typing.Tuple[int, ...]:  # pragma: no cover
+        """Shape of the constant value."""
+        return self._ufl_shape
+
+
 class DolfinxNamedConstant(DolfinxConstant):
     """A dolfinx.Constant with an additional name attribute."""
 
@@ -62,17 +95,25 @@ class DolfinxNamedConstant(DolfinxConstant):
 class FiredrakeNamedConstant(FiredrakeConstant):
     """A firedrake.Constant with an additional name attribute."""
 
+    def __new__(  # type: ignore[no-any-unimported]
+        cls: typing.Type[FiredrakeNamedConstant], name: str,
+        value: typing.Union[FiredrakeScalarType, typing.Iterable[FiredrakeScalarType]],
+        domain: typing.Optional[ufl.AbstractDomain] = None
+    ) -> FiredrakeNamedConstant:
+        """Create a new constant."""
+        return typing.cast(FiredrakeNamedConstant, FiredrakeConstant.__new__(cls, value, domain))
+
     def __init__(  # type: ignore[no-any-unimported]
         self, name: str, value: typing.Union[FiredrakeScalarType, typing.Iterable[FiredrakeScalarType]],
         domain: typing.Optional[ufl.AbstractDomain] = None
     ) -> None:
-        super().__init__(value, domain)
+        super().__init__(value, domain, name)
+        assert domain is None, "Giving Constants a domain has been deprecated in firedrake"
         self._name = name
 
         # Neglect the count argument when preparing the representation string, as we aim to
         # get a representation which is independent on the internal counter
-        self._repr = "FiredrakeNamedConstant({}, {}, {})".format(
-            repr(self._name), repr(self.values()), repr(self._ufl_function_space._ufl_domain))
+        self._repr = "FiredrakeNamedConstant({}, {})".format(repr(self._name), repr(self.values()))
         self._repr = re.sub(" +", " ", self._repr)
         self._repr = re.sub(r"\[ ", "[", self._repr)
         self._repr = re.sub(r" \]", "]", self._repr)
