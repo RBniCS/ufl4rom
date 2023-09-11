@@ -19,7 +19,7 @@ def test_name_scalar_1_dolfinx() -> None:
     mpi4py = pytest.importorskip("mpi4py")
     pytest.importorskip("mpi4py.MPI")
     mesh = dolfinx.mesh.create_unit_square(mpi4py.MPI.COMM_WORLD, 2, 2)
-    V = dolfinx.fem.FunctionSpace(mesh, ("Lagrange", 1))
+    V = dolfinx.fem.functionspace(mesh, ("Lagrange", 1))
 
     u = ufl.TrialFunction(V)
     v = ufl.TestFunction(V)
@@ -68,9 +68,9 @@ def test_name_scalar_13_dolfinx() -> None:
     pytest.importorskip("petsc4py.PETSc")
 
     mesh = dolfinx.mesh.create_unit_square(mpi4py.MPI.COMM_WORLD, 2, 2)
-    scalar_V = dolfinx.fem.FunctionSpace(mesh, ("Lagrange", 1))
-    vector_V = dolfinx.fem.VectorFunctionSpace(mesh, ("Lagrange", 1))
-    tensor_V = dolfinx.fem.TensorFunctionSpace(mesh, ("Lagrange", 1))
+    scalar_V = dolfinx.fem.functionspace(mesh, ("Lagrange", 1))
+    vector_V = dolfinx.fem.functionspace(mesh, ("Lagrange", 1, (mesh.geometry.dim, )))
+    tensor_V = dolfinx.fem.functionspace(mesh, ("Lagrange", 1, (mesh.geometry.dim, mesh.geometry.dim)))
 
     u = ufl.TrialFunction(scalar_V)
     v = ufl.TestFunction(scalar_V)
@@ -89,9 +89,9 @@ def test_name_scalar_13_dolfinx() -> None:
         + c1 * f1 * u * v * dx
     )
     if np.issubdtype(petsc4py.PETSc.ScalarType, np.complexfloating):  # names differ due to different c2 dtype
-        expected_name = "0d75efc6c795a2f4f3ce8823a3ca01db8dd3113f"
+        expected_name = "8df22a458dd1e8332c3d92528e1996549bdbbc1f"
     else:
-        expected_name = "e92188ffd8f991eb1a74a32a2a28db48a0df6a2a"
+        expected_name = "228e129bd0a3e808b1bfead3901e1bf1387fbae7"
     assert ufl4rom.utils.name(a13) == expected_name
 
 
@@ -139,7 +139,7 @@ def test_name_scalar_failure_coefficient_dolfinx() -> None:
     mpi4py = pytest.importorskip("mpi4py")
     pytest.importorskip("mpi4py.MPI")
     mesh = dolfinx.mesh.create_unit_square(mpi4py.MPI.COMM_WORLD, 2, 2)
-    V = dolfinx.fem.FunctionSpace(mesh, ("Lagrange", 1))
+    V = dolfinx.fem.functionspace(mesh, ("Lagrange", 1))
 
     u = ufl.TrialFunction(V)
     v = ufl.TestFunction(V)
