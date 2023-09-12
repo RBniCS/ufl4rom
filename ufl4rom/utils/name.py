@@ -114,7 +114,7 @@ class NameHandler(ufl.corealg.multifunction.MultiFunction):  # type: ignore[misc
         Return the constant value unchanged when an unnamed ufl ConstantValue object is provided,
         since it is safe to do so because that object is not counted.
         """
-        if isinstance(o, NamedConstantValue):
+        if isinstance(o, NamedConstantValue):  # pragma: no cover
             return o
         elif isinstance(o, FiredrakeConstant):
             # firedrake subclass ufl.ConstantValue (rather than ufl.Constant) in their definition
