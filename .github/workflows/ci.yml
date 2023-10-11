@@ -34,7 +34,7 @@ jobs:
             container: ubuntu:rolling
             setup_container: |
               export DEBIAN_FRONTEND="noninteractive"
-              apt -y -qq update
+              apt update -y -q
               apt install -y -qq git python3-mpi4py python3-pip
               rm /usr/lib/python3.*/EXTERNALLY-MANAGED
               python3 -m pip -q install git+https://github.com/FEniCS/ufl.git
@@ -104,8 +104,8 @@ jobs:
       - uses: actions/checkout@v3
       - name: Install dependencies
         run: |
-          apt -y -qq update
           export DEBIAN_FRONTEND="noninteractive"
+          apt update -y -q
           apt install -y -qq git python3-pip
           pip3 -q install coverage
       - name: Download coverage reports from artifacts
