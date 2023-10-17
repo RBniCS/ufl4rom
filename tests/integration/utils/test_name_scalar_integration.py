@@ -18,14 +18,15 @@ def test_name_scalar_1_dolfinx() -> None:
     pytest.importorskip("dolfinx.mesh")
     mpi4py = pytest.importorskip("mpi4py")
     pytest.importorskip("mpi4py.MPI")
-    mesh = dolfinx.mesh.create_unit_square(mpi4py.MPI.COMM_WORLD, 2, 2)
-    V = dolfinx.fem.functionspace(mesh, ("Lagrange", 1))
 
-    u = ufl.TrialFunction(V)
-    v = ufl.TestFunction(V)
-    f1 = dolfinx.fem.Function(V, name="parametrized coefficient 1")
-    f2 = dolfinx.fem.Function(V, name="parametrized coefficient 2")
-    f3 = dolfinx.fem.Function(V, name="parametrized coefficient 3")
+    mesh = dolfinx.mesh.create_unit_square(mpi4py.MPI.COMM_WORLD, 2, 2)
+    scalar_function_space = dolfinx.fem.functionspace(mesh, ("Lagrange", 1))
+
+    u = ufl.TrialFunction(scalar_function_space)
+    v = ufl.TestFunction(scalar_function_space)
+    f1 = dolfinx.fem.Function(scalar_function_space, name="parametrized coefficient 1")
+    f2 = dolfinx.fem.Function(scalar_function_space, name="parametrized coefficient 2")
+    f3 = dolfinx.fem.Function(scalar_function_space, name="parametrized coefficient 3")
 
     dx = ufl.dx
     grad = ufl.grad
@@ -38,14 +39,15 @@ def test_name_scalar_1_dolfinx() -> None:
 def test_name_scalar_1_firedrake() -> None:
     """Test a basic advection-diffusion-reaction parametrized form, with all parametrized firedrake coefficients."""
     firedrake = pytest.importorskip("firedrake")
-    mesh = firedrake.UnitSquareMesh(2, 2)
-    V = firedrake.FunctionSpace(mesh, "Lagrange", 1)
 
-    u = firedrake.TrialFunction(V)
-    v = firedrake.TestFunction(V)
-    f1 = firedrake.Function(V, name="parametrized coefficient 1")
-    f2 = firedrake.Function(V, name="parametrized coefficient 2")
-    f3 = firedrake.Function(V, name="parametrized coefficient 3")
+    mesh = firedrake.UnitSquareMesh(2, 2)
+    scalar_function_space = firedrake.FunctionSpace(mesh, "Lagrange", 1)
+
+    u = firedrake.TrialFunction(scalar_function_space)
+    v = firedrake.TestFunction(scalar_function_space)
+    f1 = firedrake.Function(scalar_function_space, name="parametrized coefficient 1")
+    f2 = firedrake.Function(scalar_function_space, name="parametrized coefficient 2")
+    f3 = firedrake.Function(scalar_function_space, name="parametrized coefficient 3")
 
     dx = firedrake.dx
     grad = firedrake.grad
@@ -68,15 +70,15 @@ def test_name_scalar_13_dolfinx() -> None:
     pytest.importorskip("petsc4py.PETSc")
 
     mesh = dolfinx.mesh.create_unit_square(mpi4py.MPI.COMM_WORLD, 2, 2)
-    scalar_V = dolfinx.fem.functionspace(mesh, ("Lagrange", 1))
-    vector_V = dolfinx.fem.functionspace(mesh, ("Lagrange", 1, (mesh.geometry.dim, )))
-    tensor_V = dolfinx.fem.functionspace(mesh, ("Lagrange", 1, (mesh.geometry.dim, mesh.geometry.dim)))
+    scalar_function_space = dolfinx.fem.functionspace(mesh, ("Lagrange", 1))
+    vector_function_space = dolfinx.fem.functionspace(mesh, ("Lagrange", 1, (mesh.geometry.dim, )))
+    tensor_function_space = dolfinx.fem.functionspace(mesh, ("Lagrange", 1, (mesh.geometry.dim, mesh.geometry.dim)))
 
-    u = ufl.TrialFunction(scalar_V)
-    v = ufl.TestFunction(scalar_V)
-    f1 = dolfinx.fem.Function(scalar_V, name="parametrized coefficient 1, scalar")
-    f2 = dolfinx.fem.Function(vector_V, name="parametrized coefficient 2, vector")
-    f3 = dolfinx.fem.Function(tensor_V, name="parametrized coefficient 3, tensor")
+    u = ufl.TrialFunction(scalar_function_space)
+    v = ufl.TestFunction(scalar_function_space)
+    f1 = dolfinx.fem.Function(scalar_function_space, name="parametrized coefficient 1, scalar")
+    f2 = dolfinx.fem.Function(vector_function_space, name="parametrized coefficient 2, vector")
+    f3 = dolfinx.fem.Function(tensor_function_space, name="parametrized coefficient 3, tensor")
     c1 = ufl4rom.utils.DolfinxNamedConstant("parametrized constant 1, scalar", 1.0, mesh)
     c2 = dolfinx.fem.Constant(mesh, np.array([[1.0, 2.0], [3.0, 4.0]], petsc4py.PETSc.ScalarType))
 
@@ -103,15 +105,15 @@ def test_name_scalar_13_firedrake() -> None:
     pytest.importorskip("petsc4py.PETSc")
 
     mesh = firedrake.UnitSquareMesh(2, 2)
-    scalar_V = firedrake.FunctionSpace(mesh, "Lagrange", 1)
-    vector_V = firedrake.VectorFunctionSpace(mesh, "Lagrange", 1)
-    tensor_V = firedrake.TensorFunctionSpace(mesh, "Lagrange", 1)
+    scalar_function_space = firedrake.FunctionSpace(mesh, "Lagrange", 1)
+    vector_function_space = firedrake.VectorFunctionSpace(mesh, "Lagrange", 1)
+    tensor_function_space = firedrake.TensorFunctionSpace(mesh, "Lagrange", 1)
 
-    u = firedrake.TrialFunction(scalar_V)
-    v = firedrake.TestFunction(scalar_V)
-    f1 = firedrake.Function(scalar_V, name="parametrized coefficient 1, scalar")
-    f2 = firedrake.Function(vector_V, name="parametrized coefficient 2, vector")
-    f3 = firedrake.Function(tensor_V, name="parametrized coefficient 3, tensor")
+    u = firedrake.TrialFunction(scalar_function_space)
+    v = firedrake.TestFunction(scalar_function_space)
+    f1 = firedrake.Function(scalar_function_space, name="parametrized coefficient 1, scalar")
+    f2 = firedrake.Function(vector_function_space, name="parametrized coefficient 2, vector")
+    f3 = firedrake.Function(tensor_function_space, name="parametrized coefficient 3, tensor")
     c1 = ufl4rom.utils.FiredrakeNamedConstant("parametrized constant 1, scalar", 1.0)
     c2 = firedrake.Constant(((1.0, 2.0), (3.0, 4.0)))
 
@@ -138,14 +140,15 @@ def test_name_scalar_failure_coefficient_dolfinx() -> None:
     pytest.importorskip("dolfinx.mesh")
     mpi4py = pytest.importorskip("mpi4py")
     pytest.importorskip("mpi4py.MPI")
-    mesh = dolfinx.mesh.create_unit_square(mpi4py.MPI.COMM_WORLD, 2, 2)
-    V = dolfinx.fem.functionspace(mesh, ("Lagrange", 1))
 
-    u = ufl.TrialFunction(V)
-    v = ufl.TestFunction(V)
-    f1 = dolfinx.fem.Function(V)
-    f2 = dolfinx.fem.Function(V)
-    f3 = dolfinx.fem.Function(V)
+    mesh = dolfinx.mesh.create_unit_square(mpi4py.MPI.COMM_WORLD, 2, 2)
+    scalar_function_space = dolfinx.fem.functionspace(mesh, ("Lagrange", 1))
+
+    u = ufl.TrialFunction(scalar_function_space)
+    v = ufl.TestFunction(scalar_function_space)
+    f1 = dolfinx.fem.Function(scalar_function_space)
+    f2 = dolfinx.fem.Function(scalar_function_space)
+    f3 = dolfinx.fem.Function(scalar_function_space)
 
     dx = ufl.dx
     grad = ufl.grad
@@ -160,14 +163,15 @@ def test_name_scalar_failure_coefficient_dolfinx() -> None:
 def test_name_scalar_failure_coefficient_firedrake() -> None:
     """Test variation of form 1 that will fail due to not having used (firedrake) named coefficients."""
     firedrake = pytest.importorskip("firedrake")
-    mesh = firedrake.UnitSquareMesh(2, 2)
-    V = firedrake.FunctionSpace(mesh, "Lagrange", 1)
 
-    u = firedrake.TrialFunction(V)
-    v = firedrake.TestFunction(V)
-    f1 = firedrake.Function(V)
-    f2 = firedrake.Function(V)
-    f3 = firedrake.Function(V)
+    mesh = firedrake.UnitSquareMesh(2, 2)
+    scalar_function_space = firedrake.FunctionSpace(mesh, "Lagrange", 1)
+
+    u = firedrake.TrialFunction(scalar_function_space)
+    v = firedrake.TestFunction(scalar_function_space)
+    f1 = firedrake.Function(scalar_function_space)
+    f2 = firedrake.Function(scalar_function_space)
+    f3 = firedrake.Function(scalar_function_space)
 
     dx = firedrake.dx
     grad = firedrake.grad
