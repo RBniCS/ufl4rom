@@ -31,7 +31,7 @@ except ImportError:
         @property
         def name(self) -> str:  # pragma: no cover
             """Get function name."""
-            raise RuntimeError("Cannot use a dolfinx function when dolfin is not installed")
+            raise RuntimeError("Cannot use a dolfinx function when dolfinx is not installed")
 else:
     import dolfinx.fem
     import petsc4py.PETSc

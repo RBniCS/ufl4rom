@@ -51,7 +51,7 @@ def name(  # type: ignore[no-any-unimported]
         print(f"Expression after address discard:\n{repr_e}\n")
     # All backends keep an internal id associated to the mesh object, and such id is not stripped by
     # renumber_indices. Strip the mesh id manually.
-    repr_e = re.sub(  # FEniCS and firedrake
+    repr_e = re.sub(  # firedrake
         r"Mesh\(VectorElement\(FiniteElement\('Lagrange', (.+?), (.+?)\), dim=(.+?)\), (.+?)\)",
         r"Mesh(VectorElement(FiniteElement('Lagrange', \1, \2), dim=\3))",
         repr_e
