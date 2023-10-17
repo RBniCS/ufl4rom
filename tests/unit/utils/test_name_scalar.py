@@ -34,7 +34,7 @@ def test_name_scalar_1() -> None:
     f3 = ufl4rom.utils.NamedCoefficient("parametrized coefficient 3", scalar_function_space)
 
     a1 = f3 * f2 * ufl.inner(ufl.grad(u), ufl.grad(v)) * ufl.dx + f2 * u.dx(0) * v * ufl.dx + f1 * u * v * ufl.dx
-    assert ufl4rom.utils.name(a1) == "8bfbb685ff8a1bc1671e5e20e67d7622dc8b7f50"
+    assert ufl4rom.utils.name(a1) == "29a2c37955642711c70c20aa631185f5cd47f041"
 
 
 def test_name_scalar_2() -> None:
@@ -57,7 +57,7 @@ def test_name_scalar_2() -> None:
     f3 = ufl4rom.utils.NamedCoefficient("parametrized coefficient 3", scalar_function_space)
 
     a2 = ufl.inner(f3 * ufl.grad(u), f2 * ufl.grad(v)) * ufl.dx + f2 * u.dx(0) * v * ufl.dx + f1 * u * v * ufl.dx
-    assert ufl4rom.utils.name(a2) == "1c1e6e6bd61e5097981d078bb0b7cc1366d5c7c9"
+    assert ufl4rom.utils.name(a2) == "576ec12ea5a9873fb298b110038efd747c55d69c"
 
 
 def test_name_scalar_3() -> None:
@@ -83,7 +83,7 @@ def test_name_scalar_3() -> None:
         + f2 * (1 + f2 * f3) * u.dx(0) * v * ufl.dx
         + f3 * (1 + f1 * f2) * u * v * ufl.dx
     )
-    assert ufl4rom.utils.name(a3) == "d79b5c747c1f2007562f260fc4715ba7000e9777"
+    assert ufl4rom.utils.name(a3) == "6c8d199c4c4fef59fe4fca44b0e8096f34bbba88"
 
 
 def test_name_scalar_4() -> None:
@@ -115,7 +115,7 @@ def test_name_scalar_4() -> None:
         ufl.inner(f5 * (1 + f1 * f2) * ufl.grad(u), ufl.grad(v)) * ufl.dx + ufl.inner(f4, ufl.grad(u)) * v * ufl.dx
         + f3 * u * v * ufl.dx
     )
-    assert ufl4rom.utils.name(a4) == "4953c3f5e649b2c18f0286f82bd61c78ef771abb"
+    assert ufl4rom.utils.name(a4) == "ff41720553ff0cd43767bd06e52e7de843ac50bb"
 
 
 def test_name_scalar_5() -> None:
@@ -137,7 +137,7 @@ def test_name_scalar_5() -> None:
     f3 = ufl4rom.utils.NamedCoefficient("parametrized coefficient 3", scalar_function_space)
 
     a5 = f3 * f2 * ufl.inner(ufl.grad(u), ufl.grad(v)) * ufl.ds + f2 * u.dx(0) * v * ufl.ds + f1 * u * v * ufl.ds
-    assert ufl4rom.utils.name(a5) == "713e7fe051de0d7af44cff3bbdb0b1788b11d922"
+    assert ufl4rom.utils.name(a5) == "bcf86769ae751ff2a511ef84f7854ed6674e193a"
 
 
 def test_name_scalar_6() -> None:
@@ -158,7 +158,7 @@ def test_name_scalar_6() -> None:
     h = ufl.CellDiameter(domain)
 
     a6 = f1 * h * u * v * ufl.dx
-    assert ufl4rom.utils.name(a6) == "a8a2315d1962ec1ba14054ec2117fa19df01dafd"
+    assert ufl4rom.utils.name(a6) == "993b2225a49cf67301e05df09921eac64f41974f"
 
 
 def test_name_scalar_7() -> None:
@@ -180,7 +180,7 @@ def test_name_scalar_7() -> None:
     f3 = ufl4rom.utils.NamedCoefficient("non-parametrized coefficient 3", scalar_function_space)
 
     a7 = f3 * f2 * ufl.inner(ufl.grad(u), ufl.grad(v)) * ufl.dx + f2 * u.dx(0) * v * ufl.dx + f1 * u * v * ufl.dx
-    assert ufl4rom.utils.name(a7) == "50b215b50db01484e15f86c9e1f1629ea92eba7d"
+    assert ufl4rom.utils.name(a7) == "8d4ea7b2ddd2d75c06a2a6d34d8d07016e61afb5"
 
 
 def test_name_scalar_8() -> None:
@@ -202,7 +202,7 @@ def test_name_scalar_8() -> None:
     f3 = ufl4rom.utils.NamedCoefficient("non-parametrized coefficient 3", scalar_function_space)
 
     a8 = f1 * f3 * ufl.inner(ufl.grad(u), ufl.grad(v)) * ufl.dx + f2 * u.dx(0) * v * ufl.dx + f3 * u * v * ufl.dx
-    assert ufl4rom.utils.name(a8) == "78cf1a3559fd154bccff9fd61fccb8a93d20659a"
+    assert ufl4rom.utils.name(a8) == "a52c28fdfa7dee5529cca81fb87a9b8631368d1a"
 
 
 def test_name_scalar_9() -> None:
@@ -229,7 +229,7 @@ def test_name_scalar_9() -> None:
         f2 * f4 / f1 * ufl.inner(ufl.grad(u), ufl.grad(v)) * ufl.dx + f3 * u.dx(0) * v * ufl.dx
         + f4 * u * v * ufl.dx
     )
-    assert ufl4rom.utils.name(a9) == "92edf1d4f5b8d9403df748809f78c10282fff50b"
+    assert ufl4rom.utils.name(a9) == "2b5d676cf1559f4b3c368445e3abace5b0b236b9"
 
 
 def test_name_scalar_10() -> None:
@@ -250,7 +250,7 @@ def test_name_scalar_10() -> None:
     h = ufl.CellDiameter(domain)
 
     a10 = f1 * h * u * v * ufl.dx
-    assert ufl4rom.utils.name(a10) == "a740b1feae9229127e87482cf9edd96c908f77ee"
+    assert ufl4rom.utils.name(a10) == "ed3508b6031f35d4a7861ab2de79de1562519e0e"
 
 
 def test_name_scalar_11() -> None:
@@ -273,7 +273,7 @@ def test_name_scalar_11() -> None:
     h = ufl.CellDiameter(domain)
 
     a11 = f2 * f1 * h * u * v * ufl.dx
-    assert ufl4rom.utils.name(a11) == "9957762a9c2a5ee26d264d9d6ecce49b61a8e94d"
+    assert ufl4rom.utils.name(a11) == "e55b2e59210033b0b0aca238774012a2c0aae65d"
 
 
 def test_name_scalar_12() -> None:
@@ -295,7 +295,7 @@ def test_name_scalar_12() -> None:
     h = ufl.CellDiameter(domain)
 
     a12 = f1 * h / f2 * u * v * ufl.dx
-    assert ufl4rom.utils.name(a12) == "63b4925ea76e1349e76affbd7a873c0f27927c59"
+    assert ufl4rom.utils.name(a12) == "8ef519458d1fc45550a16d4d9408984b21755a65"
 
 
 def test_name_scalar_13() -> None:
@@ -326,7 +326,7 @@ def test_name_scalar_13() -> None:
         ufl.inner(c2 * f3 * c1 * ufl.grad(u), ufl.grad(v)) * ufl.dx + ufl.inner(c1 * f2, ufl.grad(u)) * v * ufl.dx
         + c1 * f1 * u * v * ufl.dx
     )
-    assert ufl4rom.utils.name(a13) == "17113f84f7cef86a49fe009864882cba43ff0c97"
+    assert ufl4rom.utils.name(a13) == "e5d259a0911a246675d9f118274899efb511405d"
 
 
 def test_name_scalar_14() -> None:
@@ -353,7 +353,7 @@ def test_name_scalar_14() -> None:
         f3 * s1 * ufl.inner(ufl.grad(u), ufl.grad(v)) * ufl.dx + s1 / f2 * u.dx(0) * v * ufl.dx
         + f1 * s1 * u * v * ufl.dx
     )
-    assert ufl4rom.utils.name(a14) == "3c7383020464a2ce0db5752572a30ad5c2d51595"
+    assert ufl4rom.utils.name(a14) == "08301071bbc84ede7b0460ea1c06e2b3c25522bb"
 
 
 def test_name_scalar_15() -> None:
@@ -383,7 +383,7 @@ def test_name_scalar_15() -> None:
         ufl.inner(s3 * ufl.grad(u), ufl.grad(v)) * ufl.dx + ufl.inner(s2, ufl.grad(u)) * v * ufl.dx
         + s1 * u * v * ufl.dx
     )
-    assert ufl4rom.utils.name(a15) == "9ab5c129fc836d0abc109cdf50e0b29d89db894b"
+    assert ufl4rom.utils.name(a15) == "7b06667717ffda599f2eff4154eff6fbd32513d5"
 
 
 def test_name_scalar_16() -> None:
@@ -414,7 +414,7 @@ def test_name_scalar_16() -> None:
         ufl.inner(f2 * s3 * f1 * ufl.grad(u), ufl.grad(v)) * ufl.dx + ufl.inner(s2, ufl.grad(u)) * v * ufl.dx
         + s1 * u * v * ufl.dx
     )
-    assert ufl4rom.utils.name(a16) == "53c26d852f7f1b0ee26c282b9021412a71eccec1"
+    assert ufl4rom.utils.name(a16) == "28636e5b8ce2357ee10212e0352c7a70c4d571d1"
 
 
 def test_name_scalar_17() -> None:
@@ -436,7 +436,7 @@ def test_name_scalar_17() -> None:
     s1 = ufl4rom.utils.NamedCoefficient("solution of parametrized problem 1, vector", vector_function_space)
 
     a17 = s1[0] * u * v * ufl.dx + s1[1] * u.dx(0) * v * ufl.dx
-    assert ufl4rom.utils.name(a17) == "b5a6f31a47e8caee742b2bf7cca6d1c420074d17"
+    assert ufl4rom.utils.name(a17) == "5e3f5406f5f0ecc79bef3517721b520a276cf761"
 
 
 def test_name_scalar_18() -> None:
@@ -463,7 +463,7 @@ def test_name_scalar_18() -> None:
         f3 * k1 * ufl.inner(ufl.grad(u), ufl.grad(v)) * ufl.dx + f2 * k1 * u.dx(0) * v * ufl.dx
         + f1 * k1 * u * v * ufl.dx
     )
-    assert ufl4rom.utils.name(a18) == "004cb35effb1f37e3027694f38aae079a779ffcd"
+    assert ufl4rom.utils.name(a18) == "09c8f1a52eaf4bd52cd5345933ae10bdcda6d599"
 
 
 def test_name_scalar_19() -> None:
@@ -495,7 +495,7 @@ def test_name_scalar_19() -> None:
         ufl.inner(f2 * k3 * f1 * ufl.grad(u), ufl.grad(v)) * ufl.dx + ufl.inner(k2, ufl.grad(u)) * v * ufl.dx
         + k1 * u * v * ufl.dx
     )
-    assert ufl4rom.utils.name(a19) == "e10e71362c48af2d291fd2469b57117deee4b933"
+    assert ufl4rom.utils.name(a19) == "d74997cfe794879f7b0f4f198707579a868378e0"
 
 
 def test_name_scalar_20() -> None:
@@ -517,7 +517,7 @@ def test_name_scalar_20() -> None:
     k1 = ufl4rom.utils.NamedCoefficient("auxiliary known function 1, vector", vector_function_space)
 
     a20 = k1[0] * u * v * ufl.dx + k1[1] * u.dx(0) * v * ufl.dx
-    assert ufl4rom.utils.name(a20) == "e9c389b1a83b8c2811af885889233dcba23393fd"
+    assert ufl4rom.utils.name(a20) == "2a396fd6eb486b38d8fead49e8e078508034fc81"
 
 
 def test_name_scalar_21() -> None:
@@ -539,7 +539,7 @@ def test_name_scalar_21() -> None:
     s1 = ufl4rom.utils.NamedCoefficient("solution of parametrized problem 1, vector", vector_function_space)
 
     a21 = ufl.inner(ufl.grad(s1[0]), ufl.grad(u)) * v * ufl.dx + s1[1].dx(0) * u.dx(0) * v * ufl.dx
-    assert ufl4rom.utils.name(a21) == "e0ce8a7b27fb5cfb3d9559698b5d0fc818024e6f"
+    assert ufl4rom.utils.name(a21) == "1be5d577013feea78851ada47acf52f1a69a4e73"
 
 
 def test_name_scalar_22() -> None:
@@ -561,7 +561,7 @@ def test_name_scalar_22() -> None:
     k1 = ufl4rom.utils.NamedCoefficient("auxiliary known function 1, vector", vector_function_space)
 
     a22 = ufl.inner(ufl.grad(k1[0]), ufl.grad(u)) * v * ufl.dx + k1[1].dx(0) * u.dx(0) * v * ufl.dx
-    assert ufl4rom.utils.name(a22) == "15074edef16fcb8a3752c596466585994fc7cbc4"
+    assert ufl4rom.utils.name(a22) == "cbed45afa27e9347250dd3c92eb8666482d46342"
 
 
 def test_name_scalar_23() -> None:
@@ -583,7 +583,7 @@ def test_name_scalar_23() -> None:
     f2 = ufl4rom.utils.NamedCoefficient("parametrized coefficient 2", scalar_function_space)
 
     a23 = f2 / f1 * u * v * ufl.dx
-    assert ufl4rom.utils.name(a23) == "9e44d006fccd4c7cacb818da5f10b0e08fa0a211"
+    assert ufl4rom.utils.name(a23) == "6edcc91d2e79224479722f406a7e19fa585e8779"
 
 
 def test_name_scalar_24() -> None:
@@ -605,7 +605,7 @@ def test_name_scalar_24() -> None:
     f2 = ufl4rom.utils.NamedCoefficient("parametrized coefficient 2", scalar_function_space)
 
     a24 = f2 * u * v / f1 * ufl.dx
-    assert ufl4rom.utils.name(a24) == "dbd2a2f8ebf20792bd41e99b748592d8587fe918"
+    assert ufl4rom.utils.name(a24) == "d6892e8c6b2a2e49c0b784a1374f3c2f4a9704c5"
 
 
 def test_name_scalar_failure_coefficient() -> None:
@@ -686,7 +686,7 @@ def test_name_scalar_debug() -> None:
     f3 = ufl4rom.utils.NamedCoefficient("parametrized coefficient 3", scalar_function_space)
 
     a1 = f3 * f2 * ufl.inner(ufl.grad(u), ufl.grad(v)) * ufl.dx + f2 * u.dx(0) * v * ufl.dx + f1 * u * v * ufl.dx
-    assert ufl4rom.utils.name(a1, debug=True) == "8bfbb685ff8a1bc1671e5e20e67d7622dc8b7f50"
+    assert ufl4rom.utils.name(a1, debug=True) == "29a2c37955642711c70c20aa631185f5cd47f041"
 
 
 def test_name_scalar_expression() -> None:
@@ -707,4 +707,4 @@ def test_name_scalar_expression() -> None:
     f3 = ufl4rom.utils.NamedCoefficient("parametrized coefficient 3", scalar_function_space)
 
     e1 = f3 * f2 * ufl.inner(ufl.grad(u), ufl.grad(v))
-    assert ufl4rom.utils.name(e1) == "41907fc024afa06d5e8817bdf6e3435db3517f3a"
+    assert ufl4rom.utils.name(e1) == "b3262702253f9e8164dd26faf13240412f774d45"

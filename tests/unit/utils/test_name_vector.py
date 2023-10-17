@@ -39,7 +39,7 @@ def test_name_vector_1() -> None:
         ufl.inner(f3 * ufl.grad(u), ufl.grad(v)) * ufl.dx + ufl.inner(ufl.grad(u) * f2, v) * ufl.dx
         + f1 * ufl.inner(u, v) * ufl.dx
     )
-    assert ufl4rom.utils.name(a1) == "581c5dd1855b4dd8d422d957f4ffe904ee63f639"
+    assert ufl4rom.utils.name(a1) == "4d7ccb1fdb7fd88183e133c23cb62b2a00380a5a"
 
 
 def test_name_vector_2() -> None:
@@ -69,7 +69,7 @@ def test_name_vector_2() -> None:
         ufl.inner(f3 * f4 * ufl.grad(u), ufl.grad(v)) * ufl.dx + ufl.inner(ufl.grad(u) * f2, v) * ufl.dx
         + f1 * ufl.inner(u, v) * ufl.dx
     )
-    assert ufl4rom.utils.name(a2) == "4038a6ad1ec8f501ca71ec7948da880ad00fe3ec"
+    assert ufl4rom.utils.name(a2) == "dea7c3bf30df8007e185657959b9f7b267e68ef0"
 
 
 def test_name_vector_3() -> None:
@@ -99,7 +99,7 @@ def test_name_vector_3() -> None:
         ufl.inner(ufl.det(f3) * (f4 + f3 * f3) * f1, ufl.grad(v)) * ufl.dx + ufl.inner(ufl.grad(u) * f2, v) * ufl.dx
         + f1 * ufl.inner(u, v) * ufl.dx
     )
-    assert ufl4rom.utils.name(a3) == "a3aec1176f4cdc46e4ed748cfbcec56f7079fc33"
+    assert ufl4rom.utils.name(a3) == "bb823bfbe14b6bf97bf91a92799228b1f05b2579"
 
 
 def test_name_vector_4() -> None:
@@ -129,7 +129,7 @@ def test_name_vector_4() -> None:
         ufl.inner(f3 * h * ufl.grad(u), ufl.grad(v)) * ufl.dx + ufl.inner(ufl.grad(u) * f2 * h, v) * ufl.dx
         + f1 * h * ufl.inner(u, v) * ufl.dx
     )
-    assert ufl4rom.utils.name(a4) == "0255588ca95930446239cc88c1a4713beb5f0d05"
+    assert ufl4rom.utils.name(a4) == "76e4f07b1533077ae6c746907975357e642fd19e"
 
 
 def test_name_vector_5() -> None:
@@ -159,7 +159,7 @@ def test_name_vector_5() -> None:
         ufl.inner((f3 * h) * ufl.grad(u), ufl.grad(v)) * ufl.dx + ufl.inner(ufl.grad(u) * (f2 * h), v) * ufl.dx
         + (f1 * h) * ufl.inner(u, v) * ufl.dx
     )
-    assert ufl4rom.utils.name(a5) == "3891b3bcead7aa0b0b3d0254f9ac8256db1ef556"
+    assert ufl4rom.utils.name(a5) == "5e0dbde03943684ba9a1e0a9e89db0365fe8eeee"
 
 
 def test_name_vector_6() -> None:
@@ -188,7 +188,7 @@ def test_name_vector_6() -> None:
         ufl.inner(f3 * ufl.grad(u), ufl.grad(v)) * ufl.dx + ufl.inner(ufl.grad(u) * f2, v) * ufl.dx
         + f1 * ufl.inner(u, v) * ufl.dx
     )
-    assert ufl4rom.utils.name(a6) == "2bc1c041bb6503b697852314ce72409271b89e76"
+    assert ufl4rom.utils.name(a6) == "3a345b4dd17a21c595b8ffba677332b38550e181"
 
 
 def test_name_vector_7() -> None:
@@ -219,7 +219,7 @@ def test_name_vector_7() -> None:
         ufl.inner(f5 * (f3 * f4) * ufl.grad(u), ufl.grad(v)) * ufl.dx + ufl.inner(ufl.grad(u) * f2, v) * ufl.dx
         + f1 * ufl.inner(u, v) * ufl.dx
     )
-    assert ufl4rom.utils.name(a7) == "d30b741b33f1efb02c035dbfb21c39753b5e3660"
+    assert ufl4rom.utils.name(a7) == "0357df9b11126d862868edef06adc3fcd944bf67"
 
 
 def test_name_vector_8() -> None:
@@ -250,7 +250,7 @@ def test_name_vector_8() -> None:
         ufl.inner(f3 * f5 * f4 * ufl.grad(u), ufl.grad(v)) * ufl.dx + ufl.inner(ufl.grad(u) * f2, v) * ufl.dx
         + f1 * ufl.inner(u, v) * ufl.dx
     )
-    assert ufl4rom.utils.name(a8) == "4eba6d49dd78f635529bfaffc714a40cf214badf"
+    assert ufl4rom.utils.name(a8) == "ea72a5674f04d7051627861e0723684a791b60f3"
 
 
 def test_name_vector_9() -> None:
@@ -281,7 +281,7 @@ def test_name_vector_9() -> None:
         ufl.inner(c1 * (f3 * f4) * ufl.grad(u), ufl.grad(v)) * ufl.dx + ufl.inner(ufl.grad(u) * f2, v) * ufl.dx
         + f1 * ufl.inner(u, v) * ufl.dx
     )
-    assert ufl4rom.utils.name(a9) == "3b3c09fa7d8ef0df3f67fdad5e7d5bbc8d8a93dd"
+    assert ufl4rom.utils.name(a9) == "38c3ca9cbb94bae5474abfdd1cf45bb818bfd4af"
 
 
 def test_name_vector_10() -> None:
@@ -312,7 +312,7 @@ def test_name_vector_10() -> None:
         ufl.inner(f3 * c1 * f4 * ufl.grad(u), ufl.grad(v)) * ufl.dx + ufl.inner(ufl.grad(u) * f2, v) * ufl.dx
         + f1 * ufl.inner(u, v) * ufl.dx
     )
-    assert ufl4rom.utils.name(a10) == "0fecd0e3a8eb31e99c24f80c9334fe2c65478354"
+    assert ufl4rom.utils.name(a10) == "618d12fafea8615f3edf958ffb6aeb86349327ee"
 
 
 def test_name_vector_11() -> None:
@@ -342,7 +342,7 @@ def test_name_vector_11() -> None:
         ufl.inner(s3 * ufl.grad(u), ufl.grad(v)) * ufl.dx + ufl.inner(ufl.grad(u) * s2, v) * ufl.dx
         + s1 * ufl.inner(u, v) * ufl.dx
     )
-    assert ufl4rom.utils.name(a11) == "e0cb8a6c0033bdd714db00f4c5a4edb29efd332e"
+    assert ufl4rom.utils.name(a11) == "27406321f198c978e9dce3bac8234efa1278fa6e"
 
 
 def test_name_vector_12() -> None:
@@ -361,7 +361,7 @@ def test_name_vector_12() -> None:
     s1 = ufl4rom.utils.NamedCoefficient("solution of parametrized problem 1", vector_function_space)
 
     a12 = s1[0] * ufl.inner(u, v) * ufl.dx
-    assert ufl4rom.utils.name(a12) == "6a10201510dba42fc699f698ba6a8ec0a91162da"
+    assert ufl4rom.utils.name(a12) == "e858f87e6c5247729e9edc0506bb4c4fcb4b23e4"
 
 
 def test_name_vector_13() -> None:
@@ -391,7 +391,7 @@ def test_name_vector_13() -> None:
         ufl.inner(k3 * ufl.grad(u), ufl.grad(v)) * ufl.dx + ufl.inner(ufl.grad(u) * k2, v) * ufl.dx
         + k1 * ufl.inner(u, v) * ufl.dx
     )
-    assert ufl4rom.utils.name(a13) == "34162988d1d9e4e52b317a40f2f0050bfd0ba149"
+    assert ufl4rom.utils.name(a13) == "a690f711c57fc02e39bf36a06aa678ec8161b383"
 
 
 def test_name_vector_14() -> None:
@@ -410,7 +410,7 @@ def test_name_vector_14() -> None:
     k1 = ufl4rom.utils.NamedCoefficient("auxiliary known function 1", vector_function_space)
 
     a14 = k1[0] * ufl.inner(u, v) * ufl.dx
-    assert ufl4rom.utils.name(a14) == "a58d1b0421353ed49eb621a0f9e707977c866726"
+    assert ufl4rom.utils.name(a14) == "68a7774070de80683080d668345269c680a63d7c"
 
 
 def test_name_vector_15() -> None:
@@ -436,7 +436,7 @@ def test_name_vector_15() -> None:
         ufl.inner(ufl.grad(s2) * ufl.grad(u), ufl.grad(v)) * ufl.dx + ufl.inner(ufl.grad(u) * ufl.grad(s1), v) * ufl.dx
         + s1.dx(0) * ufl.inner(u, v) * ufl.dx
     )
-    assert ufl4rom.utils.name(a15) == "b461d753beef25ad68b7631d97587900026a8866"
+    assert ufl4rom.utils.name(a15) == "8173d81b4aa22b52dc8e18ea015f04fc50f7645e"
 
 
 def test_name_vector_16() -> None:
@@ -455,7 +455,7 @@ def test_name_vector_16() -> None:
     s1 = ufl4rom.utils.NamedCoefficient("solution of parametrized problem 1", vector_function_space)
 
     a16 = ufl.inner(ufl.grad(s1[0]), u) * v[0] * ufl.dx + s1[0].dx(0) * ufl.inner(u, v) * ufl.dx
-    assert ufl4rom.utils.name(a16) == "47725758e324b297285af1c3952936d1e6ae83fe"
+    assert ufl4rom.utils.name(a16) == "b1fd42d1e0b54fd297a2b2c787e0d0df7111317a"
 
 
 def test_name_vector_17() -> None:
@@ -481,7 +481,7 @@ def test_name_vector_17() -> None:
         ufl.inner(ufl.grad(k2) * ufl.grad(u), ufl.grad(v)) * ufl.dx + ufl.inner(ufl.grad(u) * ufl.grad(k1), v) * ufl.dx
         + k1.dx(0) * ufl.inner(u, v) * ufl.dx
     )
-    assert ufl4rom.utils.name(a17) == "5e4166e704713f95dbd86eca68246f5ec11b9e9a"
+    assert ufl4rom.utils.name(a17) == "b06397e64909858b76a0f27023e30b854fb3896c"
 
 
 def test_name_vector_18() -> None:
@@ -500,4 +500,4 @@ def test_name_vector_18() -> None:
     k1 = ufl4rom.utils.NamedCoefficient("auxiliary known function 1", vector_function_space)
 
     a18 = ufl.inner(ufl.grad(k1[0]), u) * v[0] * ufl.dx + k1[0].dx(0) * ufl.inner(u, v) * ufl.dx
-    assert ufl4rom.utils.name(a18) == "025d727f36916897825c120604e944f9193701ee"
+    assert ufl4rom.utils.name(a18) == "853ebe55df8ad40564691df453b75c6298d56768"
