@@ -39,21 +39,23 @@ jobs:
               rm /usr/lib/python3.*/EXTERNALLY-MANAGED
               python3 -m pip -q install git+https://github.com/FEniCS/ufl.git
           - backend: dolfinx-real
-            container: dolfinx/dolfinx:nightly
+            container: ghcr.io/fenics/dolfinx/dolfinx:nightly
             setup_container: |
               . /usr/local/bin/dolfinx-real-mode
               echo "PETSC_ARCH=$PETSC_ARCH" >> $GITHUB_ENV
               echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH" >> $GITHUB_ENV
               echo "PYTHONPATH=$PYTHONPATH" >> $GITHUB_ENV
               echo "PKG_CONFIG_PATH=$PKG_CONFIG_PATH" >> $GITHUB_ENV
+              echo "CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH" >> $GITHUB_ENV
           - backend: dolfinx-complex
-            container: dolfinx/dolfinx:nightly
+            container: ghcr.io/fenics/dolfinx/dolfinx:nightly
             setup_container: |
               . /usr/local/bin/dolfinx-complex-mode
               echo "PETSC_ARCH=$PETSC_ARCH" >> $GITHUB_ENV
               echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH" >> $GITHUB_ENV
               echo "PYTHONPATH=$PYTHONPATH" >> $GITHUB_ENV
               echo "PKG_CONFIG_PATH=$PKG_CONFIG_PATH" >> $GITHUB_ENV
+              echo "CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH" >> $GITHUB_ENV
           - backend: firedrake-real
             container: firedrakeproject/firedrake
             setup_container: |
