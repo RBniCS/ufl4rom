@@ -91,9 +91,9 @@ def test_name_scalar_13_dolfinx() -> None:
         + c1 * f1 * u * v * dx
     )
     if np.issubdtype(petsc4py.PETSc.ScalarType, np.complexfloating):  # names differ due to different c2 dtype
-        expected_name = "7f2bb7ffc0f5ce6a7506d7618d07b2f3135a5947"
+        expected_name = "8f553fbc6ec546409b68a319740b62ebb4ba4822"
     else:
-        expected_name = "1ee39cff66ac10bf976a8ba58b30fc54de1f66b2"
+        expected_name = "afe12e1d9a65bf9a68091c241110aaf5dec1e34e"
     assert ufl4rom.utils.name(a13) == expected_name
 
 
