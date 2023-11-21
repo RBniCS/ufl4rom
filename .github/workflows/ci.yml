@@ -121,7 +121,6 @@ jobs:
     runs-on: ubuntu-latest
     if: github.repository == 'RBniCS/ufl4rom' && github.ref == 'refs/heads/main' && github.event_name == 'schedule'
     steps:
-      - uses: actions/checkout@v4
       - name: Warn if scheduled workflow is about to be disabled
         uses: fem-on-colab/warn-workflow-about-to-be-disabled-action@main
         with:
