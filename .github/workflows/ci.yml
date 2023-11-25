@@ -90,7 +90,7 @@ jobs:
         shell: bash
       - name: Clean build files
         run: |
-          git config --system --add safe.directory .
+          git config --global --add safe.directory $PWD
           git clean -xdf
       - name: Run ruff
         run: |
