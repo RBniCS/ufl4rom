@@ -60,8 +60,7 @@ def test_rewrite_quotients_real_one_quotient() -> None:
 
 
 def test_rewrite_quotients_vector_real_scalar_numerator() -> None:
-    """Test ufl4rom.utils.rewrite_quotients with a quotient between two coefficients and arguments in a vector-valued\
-    function space."""
+    """Test ufl4rom.utils.rewrite_quotients with a quotient in an expression with a vector-valued coefficients."""
     cell = ufl.triangle
     dim = cell.geometric_dimension()
     scalar_element = ufl.finiteelement.FiniteElement(
@@ -114,8 +113,7 @@ def test_rewrite_quotients_vector_real_tensor_numerator() -> None:
 
 
 def test_rewrite_quotients_complex_no_quotient() -> None:
-    """Test ufl4rom.utils.rewrite_quotients when the form actually contains no quotients at all and complex-valued\
-    arguments."""
+    """Test ufl4rom.utils.rewrite_quotients when the form contains no quotients and complex-valued arguments."""
     cell = ufl.triangle
     dim = cell.geometric_dimension()
     scalar_element = ufl.finiteelement.FiniteElement(

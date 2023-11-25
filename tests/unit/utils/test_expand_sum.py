@@ -172,8 +172,10 @@ def test_expand_sum_vector_real_tensor_coefficients() -> None:
 
 
 def test_expand_sum_vector_real_tensor_coefficients_grad() -> None:
-    """Test ufl4rom.utils.expand_sum when the form contains the sum of two tensor real-valued coefficients\
-    and arguments defined on a vector finite element space."""
+    """Test ufl4rom.utils.expand_sum when the form contains the sum of two tensor real-valued coefficients.
+
+    The difference w.r.t. the previous test is that arguments are now defined on a vector finite element space.
+    """
     cell = ufl.triangle
     dim = cell.geometric_dimension()
     scalar_element = ufl.finiteelement.FiniteElement(
@@ -202,8 +204,10 @@ def test_expand_sum_vector_real_tensor_coefficients_grad() -> None:
 
 
 def test_expand_sum_vector_real_tensor_coefficients_sum_grad() -> None:
-    """Test ufl4rom.utils.expand_sum when the form contains the sum of two tensor real-valued coefficients\
-    and the gradient of the sum of arguments components."""
+    """Test ufl4rom.utils.expand_sum when the form contains the sum of two tensor real-valued coefficients.
+
+    The difference w.r.t. the previous test is that the gradient now contains the sum of arguments components.
+    """
     cell = ufl.triangle
     dim = cell.geometric_dimension()
     vector_element = ufl.finiteelement.FiniteElement(
@@ -315,8 +319,7 @@ def test_expand_sum_complex_no_sum() -> None:
 
 
 def test_expand_sum_complex_sum() -> None:
-    """Test ufl4rom.utils.expand_sum when the form contains the gradient of the sum of two complex-valude\
-    arguments components."""
+    """Test ufl4rom.utils.expand_sum when the form contains the gradient of the sum of complex-valued components."""
     cell = ufl.triangle
     dim = cell.geometric_dimension()
     scalar_element = ufl.finiteelement.FiniteElement(

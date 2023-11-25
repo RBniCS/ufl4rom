@@ -38,8 +38,10 @@ def test_name_scalar_1() -> None:
 
 
 def test_name_scalar_2() -> None:
-    """We move the diffusion coefficient inside the ufl.inner product, splitting it into the two arguments of\
-    the ufl.inner product."""
+    """We move the diffusion coefficient inside the ufl.inner product.
+
+    This requires splitting it into the two arguments of the ufl.inner product.
+    """
     cell = ufl.triangle
     dim = cell.geometric_dimension()
     scalar_element = ufl.finiteelement.FiniteElement(
@@ -87,8 +89,10 @@ def test_name_scalar_3() -> None:
 
 
 def test_name_scalar_4() -> None:
-    """We use now a diffusivity tensor and a vector convective field, to test if matrix and vector coefficients are\
-    correctly detected."""
+    """We use now a diffusivity tensor and a vector convective field.
+
+    This cases tests if matrix and vector coefficients are correctly detected.
+    """
     cell = ufl.triangle
     dim = cell.geometric_dimension()
     scalar_element = ufl.finiteelement.FiniteElement(
@@ -206,8 +210,10 @@ def test_name_scalar_8() -> None:
 
 
 def test_name_scalar_9() -> None:
-    """A part of the diffusion coefficient is parametrized, while advection-reaction terms are not parametrized,\
-    where the terms are written in a different way when compared to form 8."""
+    """A part of the diffusion coefficient is parametrized, while advection-reaction terms are not parametrized.
+
+    The terms in this test are written in a different way when compared to form 8.
+    """
     cell = ufl.triangle
     dim = cell.geometric_dimension()
     scalar_element = ufl.finiteelement.FiniteElement(
@@ -254,8 +260,10 @@ def test_name_scalar_10() -> None:
 
 
 def test_name_scalar_11() -> None:
-    """Similarly to form 6, we add a term depending on the mesh size multiplied by the product of parametrized\
-    and a non-parametrized coefficients."""
+    """Add a term depending on the mesh size multiplied by the product of parametrized and a non-parametrized coeffs.
+
+    This is simalar to test 6.
+    """
     cell = ufl.triangle
     dim = cell.geometric_dimension()
     scalar_element = ufl.finiteelement.FiniteElement(
@@ -330,8 +338,10 @@ def test_name_scalar_13() -> None:
 
 
 def test_name_scalar_14() -> None:
-    """Test a form similar to form 1, but where each term is multiplied by a scalar function, which represents\
-    the solution of a parametrized problem."""
+    """Test a form similar to form 1, but where each term is multiplied by a scalar function.
+
+    The scalar function represents the solution of a parametrized problem.
+    """
     cell = ufl.triangle
     dim = cell.geometric_dimension()
     scalar_element = ufl.finiteelement.FiniteElement(
@@ -357,8 +367,10 @@ def test_name_scalar_14() -> None:
 
 
 def test_name_scalar_15() -> None:
-    """Test a form similar to form 4, but where each term is replaced by a solution of a parametrized problem,\
-    either scalar, vector or tensor shaped."""
+    """Test a form similar to form 4, but where each term is replaced by a solution of a parametrized problem.
+
+    Scalar, vector or tensor shaped solutions are considered.
+    """
     cell = ufl.triangle
     dim = cell.geometric_dimension()
     scalar_element = ufl.finiteelement.FiniteElement(
@@ -418,8 +430,7 @@ def test_name_scalar_16() -> None:
 
 
 def test_name_scalar_17() -> None:
-    """Test a form similar to form 15, but where each term is multiplied to a component of a solution of a\
-    parametrized problem."""
+    """Test a form similar to form 15, but where each term is multiplied to a component of a solution."""
     cell = ufl.triangle
     dim = cell.geometric_dimension()
     scalar_element = ufl.finiteelement.FiniteElement(
@@ -440,8 +451,10 @@ def test_name_scalar_17() -> None:
 
 
 def test_name_scalar_18() -> None:
-    """Test a form similar to form 14, but where each term is multiplied by a scalar function, which does not\
-    represent the solution of a parametrized problem."""
+    """Test a form similar to form 14, but where each term is multiplied by a scalar function.
+
+    In contrast to form 14, the function  does not represent the solution of a parametrized problem.
+    """
     cell = ufl.triangle
     dim = cell.geometric_dimension()
     scalar_element = ufl.finiteelement.FiniteElement(
@@ -467,8 +480,10 @@ def test_name_scalar_18() -> None:
 
 
 def test_name_scalar_19() -> None:
-    """Test a form similar to form 16, but where each term is multiplied by a scalar function, which does not\
-    represent the solution of a parametrized problem."""
+    """Test a form similar to form 16, but where each term is multiplied by a scalar function.
+
+    In contrast to form 16, the function does not represent the solution of a parametrized problem.
+    """
     cell = ufl.triangle
     dim = cell.geometric_dimension()
     scalar_element = ufl.finiteelement.FiniteElement(
@@ -499,8 +514,10 @@ def test_name_scalar_19() -> None:
 
 
 def test_name_scalar_20() -> None:
-    """Test a form similar to form 17, but where each term is multiplied to a component of a function which does not\
-    represent the solution of a parametrized problem."""
+    """Test a form similar to form 17, but where each term is multiplied to a component of a function.
+
+    In contrast to form 17, the function does not represent the solution of a parametrized problem.
+    """
     cell = ufl.triangle
     dim = cell.geometric_dimension()
     scalar_element = ufl.finiteelement.FiniteElement(
@@ -521,8 +538,7 @@ def test_name_scalar_20() -> None:
 
 
 def test_name_scalar_21() -> None:
-    """Test a form similar to form 17, but where each term is multiplied to the gradient or partial derivative of\
-    a component of a solution of a parametrized problem."""
+    """Test a form similar to form 17, but where each term is multiplied to the gradient of a solution."""
     cell = ufl.triangle
     dim = cell.geometric_dimension()
     scalar_element = ufl.finiteelement.FiniteElement(
@@ -543,8 +559,10 @@ def test_name_scalar_21() -> None:
 
 
 def test_name_scalar_22() -> None:
-    """Test a form similar to form 21, but where each term is multiplied to the gradient or partial derivative of\
-    a component of a Function which is not the solution of a parametrized problem."""
+    """Test a form similar to form 21, but where each term is multiplied to the gradient of a function.
+
+    In contrast to form 21, the function is not the solution of a parametrized problem.
+    """
     cell = ufl.triangle
     dim = cell.geometric_dimension()
     scalar_element = ufl.finiteelement.FiniteElement(
@@ -565,8 +583,7 @@ def test_name_scalar_22() -> None:
 
 
 def test_name_scalar_23() -> None:
-    """Test a form with a division between two expressions, which could have been equivalently written as\
-    one coefficient."""
+    """Test a form with a division between two expressions, which can be equivalently written as one coefficient."""
     cell = ufl.triangle
     dim = cell.geometric_dimension()
     scalar_element = ufl.finiteelement.FiniteElement(
@@ -587,8 +604,10 @@ def test_name_scalar_23() -> None:
 
 
 def test_name_scalar_24() -> None:
-    """Test a form with division between two expressions, which (in contrast to form 24) cannot be written as\
-    one coefficient."""
+    """Test a form with division between two expressions, which cannot be written as one coefficient.
+
+    This is in contrast to form 24.
+    """
     cell = ufl.triangle
     dim = cell.geometric_dimension()
     scalar_element = ufl.finiteelement.FiniteElement(

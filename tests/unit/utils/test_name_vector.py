@@ -316,8 +316,7 @@ def test_name_vector_10() -> None:
 
 
 def test_name_vector_11() -> None:
-    """Test form similar to form 1, but where each term is multiplied by a Function, which represents the solution of\
-    a parametrized problem."""
+    """Test form similar to form 1, but where each term is multiplied by a solution."""
     cell = ufl.triangle
     dim = cell.geometric_dimension()
     scalar_element = ufl.finiteelement.FiniteElement(
@@ -346,8 +345,10 @@ def test_name_vector_11() -> None:
 
 
 def test_name_vector_12() -> None:
-    """Test a form similar to form 11, but where each term is multiplied by a component of a solution of a parametrized\
-    problem, resulting in an Indexed coefficient."""
+    """Test a form similar to form 11, but where each term is multiplied by a component of a solution.
+
+    The extraction of a component results in an Indexed coefficient.
+    """
     cell = ufl.triangle
     dim = cell.geometric_dimension()
     vector_element = ufl.finiteelement.FiniteElement(
@@ -365,8 +366,10 @@ def test_name_vector_12() -> None:
 
 
 def test_name_vector_13() -> None:
-    """Test a form similar to form 11, but where each term is multiplied by a Function, which does not represent the\
-    solution of a parametrized problem."""
+    """Test a form similar to form 11, but where each term is multiplied by a function.
+
+    In contrast to form 11, the function does not represent the solution of a parametrized problem.
+    """
     cell = ufl.triangle
     dim = cell.geometric_dimension()
     scalar_element = ufl.finiteelement.FiniteElement(
@@ -395,8 +398,10 @@ def test_name_vector_13() -> None:
 
 
 def test_name_vector_14() -> None:
-    """Test a form similar to form 12, but where each term is multiplied by a component of a Function which does not\
-    represent the solution of a parametrized problem."""
+    """Test a form similar to form 12, but where each term is multiplied by a component of a function.
+
+    In contrast to form 12, the function does not represent the solution of a parametrized problem.
+    """
     cell = ufl.triangle
     dim = cell.geometric_dimension()
     vector_element = ufl.finiteelement.FiniteElement(
@@ -414,8 +419,7 @@ def test_name_vector_14() -> None:
 
 
 def test_name_vector_15() -> None:
-    """Test a form similar to form 11, but where each term is multiplied by the gradientor partial derivative of\
-    a Function, which represents the solution of a parametrized problem."""
+    """Test a form similar to form 11, but where each term is multiplied by the gradient of a solution."""
     cell = ufl.triangle
     dim = cell.geometric_dimension()
     scalar_element = ufl.finiteelement.FiniteElement(
@@ -440,8 +444,7 @@ def test_name_vector_15() -> None:
 
 
 def test_name_vector_16() -> None:
-    """Test a form similar to form 12, but where each term is multiplied by the gradient or partial derivative of\
-    a component of a solution of a parametrized problem."""
+    """Test a form similar to form 12, but where each term is multiplied by the gradient of a solution."""
     cell = ufl.triangle
     dim = cell.geometric_dimension()
     vector_element = ufl.finiteelement.FiniteElement(
@@ -459,8 +462,10 @@ def test_name_vector_16() -> None:
 
 
 def test_name_vector_17() -> None:
-    """Test a form is similar to form 13, but where each term is multiplied by a the gradient or partial derivative of\
-    a Function, which does not represent the solution of a parametrized problem."""
+    """Test a form is similar to form 13, but where each term is multiplied by the gradient of a function.
+
+    In contrast to form 17, the function does not represent the solution of a parametrized problem.
+    """
     cell = ufl.triangle
     dim = cell.geometric_dimension()
     scalar_element = ufl.finiteelement.FiniteElement(
@@ -485,8 +490,10 @@ def test_name_vector_17() -> None:
 
 
 def test_name_vector_18() -> None:
-    """Test a form similar to form 14, but where each term is multiplied by the gradient or partial derivative of\
-    a component of a Function which does not represent the solution of a parametrized problem."""
+    """Test a form similar to form 14, but where each term is multiplied by the gradient of a component of a function.
+
+    In contrast to form 14, the function does not represent the solution of a parametrized problem.
+    """
     cell = ufl.triangle
     dim = cell.geometric_dimension()
     vector_element = ufl.finiteelement.FiniteElement(

@@ -78,9 +78,9 @@ jobs:
           BACKEND=backend_${BACKEND%-*}
           python3 -m pip install .[${BACKEND},docs,lint,tests]
         shell: bash
-      - name: Run flake8
+      - name: Run ruff
         run: |
-          python3 -m flake8 .
+          python3 -m ruff .
       - name: Run isort
         run: |
           python3 -m isort --check --diff .
