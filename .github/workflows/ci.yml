@@ -84,7 +84,7 @@ jobs:
           python3 -m mypy .
       - name: Run documentation generation
         run: |
-          cd docs && make html
+          cd docs && python3 -m sphinx -W -b html . build/html
       - name: Run unit tests
         run: |
           COVERAGE_FILE=.coverage_unit python3 -m coverage run --source=ufl4rom -m pytest --random-order tests/unit
