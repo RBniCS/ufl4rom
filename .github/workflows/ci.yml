@@ -32,14 +32,19 @@ jobs:
         include:
           - backend: none
             container: ubuntu:rolling
+            setup_git: |
+              export DEBIAN_FRONTEND="noninteractive"
+              apt update -y -q
+              apt install -y -qq git
             setup_container: |
               export DEBIAN_FRONTEND="noninteractive"
               apt update -y -q
-              apt install -y -qq git python3-mpi4py python3-pip
+              apt install -y -qq python3-mpi4py python3-pip
               rm /usr/lib/python3.*/EXTERNALLY-MANAGED
               python3 -m pip -q install git+https://github.com/FEniCS/ufl.git
           - backend: dolfinx-real
             container: ghcr.io/fenics/dolfinx/dolfinx:nightly
+            setup_git: ""
             setup_container: |
               . /usr/local/bin/dolfinx-real-mode
               echo "PETSC_ARCH=$PETSC_ARCH" >> $GITHUB_ENV
@@ -49,6 +54,7 @@ jobs:
               echo "CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH" >> $GITHUB_ENV
           - backend: dolfinx-complex
             container: ghcr.io/fenics/dolfinx/dolfinx:nightly
+            setup_git: ""
             setup_container: |
               . /usr/local/bin/dolfinx-complex-mode
               echo "PETSC_ARCH=$PETSC_ARCH" >> $GITHUB_ENV
@@ -58,10 +64,12 @@ jobs:
               echo "CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH" >> $GITHUB_ENV
           - backend: firedrake-real
             container: firedrakeproject/firedrake
+            setup_git: ""
             setup_container: |
               echo "/home/firedrake/firedrake/bin" >> $GITHUB_PATH
           - backend: firedrake-complex
             container: firedrakeproject/firedrake-complex
+            setup_git: ""
             setup_container: |
               echo "/home/firedrake/firedrake/bin" >> $GITHUB_PATH
       fail-fast: false
@@ -69,6 +77,8 @@ jobs:
       image: ${{ matrix.container }}
       options: --user root
     steps:
+      - name: Setup git
+        run: ${{ matrix.setup_git }}
       - uses: actions/checkout@v4
       - name: Setup container
         run: ${{ matrix.setup_container }}
@@ -78,6 +88,10 @@ jobs:
           BACKEND=backend_${BACKEND%-*}
           python3 -m pip install .[${BACKEND},docs,lint,tests]
         shell: bash
+      - name: Clean build files
+        run: |
+          git config --system --add safe.directory .
+          git clean -xdf
       - name: Run ruff
         run: |
           python3 -m ruff .
