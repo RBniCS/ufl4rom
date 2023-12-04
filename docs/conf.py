@@ -8,7 +8,7 @@
 # Project information
 project = "ufl4rom"
 copyright = "2021-2023, the ufl4rom authors"
-author = "Francesco Ballarin (and contributors)"
+author = "Francesco Ballarin"
 
 # General configuration
 extensions = [
