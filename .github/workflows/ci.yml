@@ -92,6 +92,18 @@ jobs:
         run: |
           git config --global --add safe.directory $PWD
           git clean -xdf
+      - name: Update mypy configuration
+        run: |
+          if [[ "${{ matrix.backend }}" == "dolfinx-"* ]]; then
+            :
+          elif [[ "${{ matrix.backend }}" == "firedrake-"* || "${{ matrix.backend }}" == "none" ]]; then
+            sed -i 's@    # "dolfinx",@    "dolfinx",@g' pyproject.toml
+            sed -i 's@    # "dolfinx.*",@    "dolfinx.*",@g' pyproject.toml
+          else
+            echo "Invalid backend"
+            exit 1
+          fi
+        shell: bash
       - name: Run ruff
         run: |
           python3 -m ruff .

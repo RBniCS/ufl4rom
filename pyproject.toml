@@ -84,31 +84,15 @@ warn_return_any = true
 warn_unused_ignores = true
 
 [[tool.mypy.overrides]]
-module = "dolfinx"
-ignore_missing_imports = true
-
-[[tool.mypy.overrides]]
-module = "dolfinx.*"
-ignore_missing_imports = true
-
-[[tool.mypy.overrides]]
-module = "firedrake"
-ignore_missing_imports = true
-
-[[tool.mypy.overrides]]
-module = "petsc4py"
-ignore_missing_imports = true
-
-[[tool.mypy.overrides]]
-module = "petsc4py.PETSc"
-ignore_missing_imports = true
-
-[[tool.mypy.overrides]]
-module = "ufl"
-ignore_missing_imports = true
-
-[[tool.mypy.overrides]]
-module = "ufl.*"
+module = [
+    # "dolfinx",
+    # "dolfinx.*",
+    "firedrake",
+    "petsc4py",
+    "petsc4py.PETSc",
+    "ufl",
+    "ufl.*"
+]
 ignore_missing_imports = true
 
 [tool.ruff]
