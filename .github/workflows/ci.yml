@@ -130,7 +130,7 @@ jobs:
           export DEBIAN_FRONTEND="noninteractive"
           apt update -y -q
           apt install -y -qq git python3-pip
-          pip3 -q install coverage
+          python3 -m pip -q install coverage
       - name: Download coverage reports from artifacts
         uses: actions/download-artifact@v3
       - name: Combine coverage reports
