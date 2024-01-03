@@ -18,7 +18,7 @@ jobs:
       matrix:
         include:
           - backend: none
-            container: ubuntu:rolling
+            container: debian:testing
             setup_git: |
               export DEBIAN_FRONTEND="noninteractive"
               apt update -y -q
@@ -121,7 +121,7 @@ jobs:
 
   combine_coverage_reports:
     runs-on: ubuntu-latest
-    container: ubuntu
+    container: debian:testing
     needs: [test]
     steps:
       - uses: actions/checkout@v4
@@ -130,6 +130,7 @@ jobs:
           export DEBIAN_FRONTEND="noninteractive"
           apt update -y -q
           apt install -y -qq python3-pip
+          rm /usr/lib/python3.*/EXTERNALLY-MANAGED
           python3 -m pip -q install coverage
       - name: Download coverage reports from artifacts
         uses: actions/download-artifact@v3
