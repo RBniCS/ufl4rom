@@ -113,7 +113,7 @@ jobs:
         run: |
           COVERAGE_FILE=.coverage_integration python3 -m coverage run --source=ufl4rom -m pytest --random-order tests/integration
       - name: Upload coverage report as an artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: coverage-${{ matrix.backend }}
           path: .coverage*
@@ -133,7 +133,7 @@ jobs:
           rm /usr/lib/python3.*/EXTERNALLY-MANAGED
           python3 -m pip -q install coverage
       - name: Download coverage reports from artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
       - name: Combine coverage reports
         run: |
           python3 -m coverage combine coverage-*/.coverage*
