@@ -23,8 +23,7 @@ class NamedCoefficient(ufl.Coefficient):  # type: ignore[misc, no-any-unimported
 
         # Neglect the count argument when preparing the representation string, as we aim to
         # get a representation which is independent on the internal counter
-        self._repr = "NamedCoefficient({}, {})".format(
-            repr(self._name), repr(self._ufl_function_space))
+        self._repr = f"NamedCoefficient({self._name!r}, {self._ufl_function_space!r})"
         self._repr = re.sub(" +", " ", self._repr)
         self._repr = re.sub(r"\[ ", "[", self._repr)
         self._repr = re.sub(r" \]", "]", self._repr)

@@ -14,7 +14,7 @@ OriginalTestType = typing.Callable[..., typing.Any]
 
 
 def enable_logging(
-    loggers_and_levels: typing.Dict[logging.Logger, int]
+    loggers_and_levels: dict[logging.Logger, int]
 ) -> typing.Callable[[OriginalTestType], OriginalTestType]:
     """Return a decorator that enables logging."""
     logging.basicConfig(stream=sys.stdout)

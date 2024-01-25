@@ -6,7 +6,6 @@
 """Expand a form continaing the integral of a sum to contain instead the sum of several integrals."""
 
 import itertools
-import typing
 
 import ufl
 import ufl.algorithms.map_integrands
@@ -38,10 +37,10 @@ class SumExpander(ufl.corealg.multifunction.MultiFunction):  # type: ignore[misc
 
     def __init__(self) -> None:
         super().__init__()
-        self.ufl_to_replaced_ufl: typing.Dict[  # type: ignore[no-any-unimported]
+        self.ufl_to_replaced_ufl: dict[  # type: ignore[no-any-unimported]
             ufl.core.expr.Expr, ufl.core.expr.Expr] = dict()
-        self.ufl_to_split_ufl: typing.Dict[  # type: ignore[no-any-unimported]
-            ufl.core.expr.Expr, typing.List[ufl.core.expr.Expr]] = dict()
+        self.ufl_to_split_ufl: dict[  # type: ignore[no-any-unimported]
+            ufl.core.expr.Expr, list[ufl.core.expr.Expr]] = dict()
 
     expr = ufl.corealg.multifunction.MultiFunction.reuse_if_untouched
 

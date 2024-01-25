@@ -5,11 +5,15 @@
 # SPDX-License-Identifier: LGPL-3.0-or-later
 """Import specialization of UFL classes from dolfinx and firedrake backends."""
 
-from __future__ import annotations
-
+import sys
 import typing
 
 import ufl
+
+if sys.version_info >= (3, 11):
+    import typing as typing_extensions
+else:
+    import typing_extensions
 
 try:
     import dolfinx
@@ -49,10 +53,10 @@ except ImportError:
         """Mock firedrake.Constant class."""
 
         def __new__(  # type: ignore[no-any-unimported]
-            cls: typing.Type[FiredrakeConstant],
+            cls: type[typing_extensions.Self],
             value: typing.Union[FiredrakeScalarType, typing.Iterable[FiredrakeScalarType]],
             domain: typing.Optional[ufl.AbstractDomain] = None, name: typing.Optional[str] = None
-        ) -> FiredrakeConstant:  # pragma: no cover
+        ) -> typing_extensions.Self:  # pragma: no cover
             """Create a new constant."""
             raise RuntimeError("Cannot use a firedrake constant when firedrake is not installed")
 

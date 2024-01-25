@@ -5,21 +5,25 @@
 # SPDX-License-Identifier: LGPL-3.0-or-later
 """Add a name to ufl.Constant and its specialization offered by backends."""
 
-from __future__ import annotations
-
 import re
+import sys
 import typing
 
 import ufl
 
 from ufl4rom.utils.backends import DolfinxConstant, DolfinxScalarType, FiredrakeConstant, FiredrakeScalarType
 
+if sys.version_info >= (3, 11):
+    import typing as typing_extensions
+else:
+    import typing_extensions
+
 
 class NamedConstant(ufl.Constant):  # type: ignore[misc, no-any-unimported]
     """An ufl.Constant with an additional name attribute."""
 
     def __init__(  # type: ignore[no-any-unimported]
-        self, name: str, domain: ufl.AbstractDomain, shape: typing.Tuple[int, ...] = (),
+        self, name: str, domain: ufl.AbstractDomain, shape: tuple[int, ...] = (),
         count: typing.Optional[int] = None
     ) -> None:
         super().__init__(domain, shape, count)
@@ -27,8 +31,7 @@ class NamedConstant(ufl.Constant):  # type: ignore[misc, no-any-unimported]
 
         # Neglect the count argument when preparing the representation string, as we aim to
         # get a representation which is independent on the internal counter
-        self._repr = "NamedConstant({}, {}, {})".format(
-            repr(self._name), repr(self._ufl_domain), repr(self._ufl_shape))
+        self._repr = f"NamedConstant({self._name!r}, {self._ufl_domain!r}, {self._ufl_shape!r})"
         self._repr = re.sub(" +", " ", self._repr)
         self._repr = re.sub(r"\[ ", "[", self._repr)
         self._repr = re.sub(r" \]", "]", self._repr)
@@ -42,7 +45,7 @@ class NamedConstantValue(ufl.constantvalue.ConstantValue):  # type: ignore[misc,
     """An ufl.constantvalue.ConstantValue with an additional name attribute."""
 
     def __init__(
-        self, name: str, shape: typing.Tuple[int, ...] = ()
+        self, name: str, shape: tuple[int, ...] = ()
     ) -> None:
         super().__init__()
         self._name = name
@@ -50,7 +53,7 @@ class NamedConstantValue(ufl.constantvalue.ConstantValue):  # type: ignore[misc,
         self._ufl_shape = shape
 
         # Represent the constant value by its name and its shape
-        self._repr = "NamedConstantValue({}, {})".format(repr(self._name), repr(self._ufl_shape))
+        self._repr = f"NamedConstantValue({self._name!r}, {self._ufl_shape!r})"
         self._repr = re.sub(" +", " ", self._repr)
         self._repr = re.sub(r"\[ ", "[", self._repr)
         self._repr = re.sub(r" \]", "]", self._repr)
@@ -64,7 +67,7 @@ class NamedConstantValue(ufl.constantvalue.ConstantValue):  # type: ignore[misc,
         return self._repr
 
     @property
-    def ufl_shape(self) -> typing.Tuple[int, ...]:  # pragma: no cover
+    def ufl_shape(self) -> tuple[int, ...]:  # pragma: no cover
         """Shape of the constant value."""
         return self._ufl_shape
 
@@ -81,8 +84,7 @@ class DolfinxNamedConstant(DolfinxConstant):
 
         # Neglect the count argument when preparing the representation string, as we aim to
         # get a representation which is independent on the internal counter
-        self._repr = "DolfinxNamedConstant({}, {}, {})".format(
-            repr(self._name), repr(self.value), repr(self._ufl_domain))
+        self._repr = f"DolfinxNamedConstant({self._name!r}, {self.value!r}, {self._ufl_domain!r})"
         self._repr = re.sub(" +", " ", self._repr)
         self._repr = re.sub(r"\[ ", "[", self._repr)
         self._repr = re.sub(r" \]", "]", self._repr)
@@ -96,10 +98,10 @@ class FiredrakeNamedConstant(FiredrakeConstant):
     """A firedrake.Constant with an additional name attribute."""
 
     def __new__(  # type: ignore[no-any-unimported]
-        cls: typing.Type[FiredrakeNamedConstant], name: str,
+        cls: type[typing_extensions.Self], name: str,
         value: typing.Union[FiredrakeScalarType, typing.Iterable[FiredrakeScalarType]],
         domain: typing.Optional[ufl.AbstractDomain] = None
-    ) -> FiredrakeNamedConstant:
+    ) -> typing_extensions.Self:
         """Create a new constant."""
         return typing.cast(FiredrakeNamedConstant, FiredrakeConstant.__new__(cls, value, domain))
 
@@ -113,7 +115,7 @@ class FiredrakeNamedConstant(FiredrakeConstant):
 
         # Neglect the count argument when preparing the representation string, as we aim to
         # get a representation which is independent on the internal counter
-        self._repr = "FiredrakeNamedConstant({}, {})".format(repr(self._name), repr(self.values()))
+        self._repr = f"FiredrakeNamedConstant({self._name!r}, {self.values()!r})"
         self._repr = re.sub(" +", " ", self._repr)
         self._repr = re.sub(r"\[ ", "[", self._repr)
         self._repr = re.sub(r" \]", "]", self._repr)
