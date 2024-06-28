@@ -17,7 +17,7 @@ import ufl4rom.utils
 def test_rewrite_quotients_real_no_quotient() -> None:
     """Test ufl4rom.utils.rewrite_quotients when the form actually contains no quotients at all."""
     cell = ufl.triangle
-    dim = cell.geometric_dimension()
+    dim = 2
     scalar_element = ufl.finiteelement.FiniteElement(
         "Lagrange", cell, 1, (), ufl.pullback.identity_pullback, ufl.sobolevspace.H1)
     vector_element = ufl.finiteelement.FiniteElement(
@@ -39,7 +39,7 @@ def test_rewrite_quotients_real_no_quotient() -> None:
 def test_rewrite_quotients_real_one_quotient() -> None:
     """Test ufl4rom.utils.rewrite_quotients with a quotient between two coefficients."""
     cell = ufl.triangle
-    dim = cell.geometric_dimension()
+    dim = 2
     scalar_element = ufl.finiteelement.FiniteElement(
         "Lagrange", cell, 1, (), ufl.pullback.identity_pullback, ufl.sobolevspace.H1)
     vector_element = ufl.finiteelement.FiniteElement(
@@ -62,7 +62,7 @@ def test_rewrite_quotients_real_one_quotient() -> None:
 def test_rewrite_quotients_vector_real_scalar_numerator() -> None:
     """Test ufl4rom.utils.rewrite_quotients with a quotient in an expression with a vector-valued coefficients."""
     cell = ufl.triangle
-    dim = cell.geometric_dimension()
+    dim = 2
     scalar_element = ufl.finiteelement.FiniteElement(
         "Lagrange", cell, 1, (), ufl.pullback.identity_pullback, ufl.sobolevspace.H1)
     vector_element = ufl.finiteelement.FiniteElement(
@@ -87,7 +87,7 @@ def test_rewrite_quotients_vector_real_scalar_numerator() -> None:
 def test_rewrite_quotients_vector_real_tensor_numerator() -> None:
     """Test ufl4rom.utils.rewrite_quotients with a quotient between a tensor coefficient and a scalar coefficient."""
     cell = ufl.triangle
-    dim = cell.geometric_dimension()
+    dim = 2
     scalar_element = ufl.finiteelement.FiniteElement(
         "Lagrange", cell, 1, (), ufl.pullback.identity_pullback, ufl.sobolevspace.H1)
     vector_element = ufl.finiteelement.FiniteElement(
@@ -115,7 +115,7 @@ def test_rewrite_quotients_vector_real_tensor_numerator() -> None:
 def test_rewrite_quotients_complex_no_quotient() -> None:
     """Test ufl4rom.utils.rewrite_quotients when the form contains no quotients and complex-valued arguments."""
     cell = ufl.triangle
-    dim = cell.geometric_dimension()
+    dim = 2
     scalar_element = ufl.finiteelement.FiniteElement(
         "Lagrange", cell, 1, (), ufl.pullback.identity_pullback, ufl.sobolevspace.H1)
     vector_element = ufl.finiteelement.FiniteElement(
@@ -137,7 +137,7 @@ def test_rewrite_quotients_complex_no_quotient() -> None:
 def test_rewrite_quotients_complex_one_quotient() -> None:
     """Test ufl4rom.utils.expand_sum when the form contains the sum of two complex coefficients."""
     cell = ufl.triangle
-    dim = cell.geometric_dimension()
+    dim = 2
     scalar_element = ufl.finiteelement.FiniteElement(
         "Lagrange", cell, 1, (), ufl.pullback.identity_pullback, ufl.sobolevspace.H1)
     vector_element = ufl.finiteelement.FiniteElement(

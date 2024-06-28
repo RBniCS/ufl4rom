@@ -18,7 +18,7 @@ import ufl4rom.utils
 def test_name_scalar_1() -> None:
     """Test a basic advection-diffusion-reaction parametrized form, with all parametrized coefficients."""
     cell = ufl.triangle
-    dim = cell.geometric_dimension()
+    dim = 2
     scalar_element = ufl.finiteelement.FiniteElement(
         "Lagrange", cell, 1, (), ufl.pullback.identity_pullback, ufl.sobolevspace.H1)
     vector_element = ufl.finiteelement.FiniteElement(
@@ -43,7 +43,7 @@ def test_name_scalar_2() -> None:
     This requires splitting it into the two arguments of the ufl.inner product.
     """
     cell = ufl.triangle
-    dim = cell.geometric_dimension()
+    dim = 2
     scalar_element = ufl.finiteelement.FiniteElement(
         "Lagrange", cell, 1, (), ufl.pullback.identity_pullback, ufl.sobolevspace.H1)
     vector_element = ufl.finiteelement.FiniteElement(
@@ -65,7 +65,7 @@ def test_name_scalar_2() -> None:
 def test_name_scalar_3() -> None:
     """Test a form containing a sum of coefficients."""
     cell = ufl.triangle
-    dim = cell.geometric_dimension()
+    dim = 2
     scalar_element = ufl.finiteelement.FiniteElement(
         "Lagrange", cell, 1, (), ufl.pullback.identity_pullback, ufl.sobolevspace.H1)
     vector_element = ufl.finiteelement.FiniteElement(
@@ -94,7 +94,7 @@ def test_name_scalar_4() -> None:
     This cases tests if matrix and vector coefficients are correctly detected.
     """
     cell = ufl.triangle
-    dim = cell.geometric_dimension()
+    dim = 2
     scalar_element = ufl.finiteelement.FiniteElement(
         "Lagrange", cell, 1, (), ufl.pullback.identity_pullback, ufl.sobolevspace.H1)
     vector_element = ufl.finiteelement.FiniteElement(
@@ -125,7 +125,7 @@ def test_name_scalar_4() -> None:
 def test_name_scalar_5() -> None:
     """We change the integration domain to be the boundary. This is a variation of form 1."""
     cell = ufl.triangle
-    dim = cell.geometric_dimension()
+    dim = 2
     scalar_element = ufl.finiteelement.FiniteElement(
         "Lagrange", cell, 1, (), ufl.pullback.identity_pullback, ufl.sobolevspace.H1)
     vector_element = ufl.finiteelement.FiniteElement(
@@ -147,7 +147,7 @@ def test_name_scalar_5() -> None:
 def test_name_scalar_6() -> None:
     """We add a term depending on the mesh size."""
     cell = ufl.triangle
-    dim = cell.geometric_dimension()
+    dim = 2
     scalar_element = ufl.finiteelement.FiniteElement(
         "Lagrange", cell, 1, (), ufl.pullback.identity_pullback, ufl.sobolevspace.H1)
     vector_element = ufl.finiteelement.FiniteElement(
@@ -168,7 +168,7 @@ def test_name_scalar_6() -> None:
 def test_name_scalar_7() -> None:
     """We change the coefficients to be non-parametrized."""
     cell = ufl.triangle
-    dim = cell.geometric_dimension()
+    dim = 2
     scalar_element = ufl.finiteelement.FiniteElement(
         "Lagrange", cell, 1, (), ufl.pullback.identity_pullback, ufl.sobolevspace.H1)
     vector_element = ufl.finiteelement.FiniteElement(
@@ -190,7 +190,7 @@ def test_name_scalar_7() -> None:
 def test_name_scalar_8() -> None:
     """A part of the diffusion coefficient is parametrized, while advection-reaction are not parametrized."""
     cell = ufl.triangle
-    dim = cell.geometric_dimension()
+    dim = 2
     scalar_element = ufl.finiteelement.FiniteElement(
         "Lagrange", cell, 1, (), ufl.pullback.identity_pullback, ufl.sobolevspace.H1)
     vector_element = ufl.finiteelement.FiniteElement(
@@ -215,7 +215,7 @@ def test_name_scalar_9() -> None:
     The terms in this test are written in a different way when compared to form 8.
     """
     cell = ufl.triangle
-    dim = cell.geometric_dimension()
+    dim = 2
     scalar_element = ufl.finiteelement.FiniteElement(
         "Lagrange", cell, 1, (), ufl.pullback.identity_pullback, ufl.sobolevspace.H1)
     vector_element = ufl.finiteelement.FiniteElement(
@@ -241,7 +241,7 @@ def test_name_scalar_9() -> None:
 def test_name_scalar_10() -> None:
     """Similarly to form 6, we add a term depending on the mesh size multiplied by a non-parametrized coefficient."""
     cell = ufl.triangle
-    dim = cell.geometric_dimension()
+    dim = 2
     scalar_element = ufl.finiteelement.FiniteElement(
         "Lagrange", cell, 1, (), ufl.pullback.identity_pullback, ufl.sobolevspace.H1)
     vector_element = ufl.finiteelement.FiniteElement(
@@ -265,7 +265,7 @@ def test_name_scalar_11() -> None:
     This is simalar to test 6.
     """
     cell = ufl.triangle
-    dim = cell.geometric_dimension()
+    dim = 2
     scalar_element = ufl.finiteelement.FiniteElement(
         "Lagrange", cell, 1, (), ufl.pullback.identity_pullback, ufl.sobolevspace.H1)
     vector_element = ufl.finiteelement.FiniteElement(
@@ -287,7 +287,7 @@ def test_name_scalar_11() -> None:
 def test_name_scalar_12() -> None:
     """We change form 11 with a slightly different coefficient."""
     cell = ufl.triangle
-    dim = cell.geometric_dimension()
+    dim = 2
     scalar_element = ufl.finiteelement.FiniteElement(
         "Lagrange", cell, 1, (), ufl.pullback.identity_pullback, ufl.sobolevspace.H1)
     vector_element = ufl.finiteelement.FiniteElement(
@@ -309,7 +309,7 @@ def test_name_scalar_12() -> None:
 def test_name_scalar_13() -> None:
     """We now introduce constants in the expression."""
     cell = ufl.triangle
-    dim = cell.geometric_dimension()
+    dim = 2
     scalar_element = ufl.finiteelement.FiniteElement(
         "Lagrange", cell, 1, (), ufl.pullback.identity_pullback, ufl.sobolevspace.H1)
     vector_element = ufl.finiteelement.FiniteElement(
@@ -343,7 +343,7 @@ def test_name_scalar_14() -> None:
     The scalar function represents the solution of a parametrized problem.
     """
     cell = ufl.triangle
-    dim = cell.geometric_dimension()
+    dim = 2
     scalar_element = ufl.finiteelement.FiniteElement(
         "Lagrange", cell, 1, (), ufl.pullback.identity_pullback, ufl.sobolevspace.H1)
     vector_element = ufl.finiteelement.FiniteElement(
@@ -372,7 +372,7 @@ def test_name_scalar_15() -> None:
     Scalar, vector or tensor shaped solutions are considered.
     """
     cell = ufl.triangle
-    dim = cell.geometric_dimension()
+    dim = 2
     scalar_element = ufl.finiteelement.FiniteElement(
         "Lagrange", cell, 1, (), ufl.pullback.identity_pullback, ufl.sobolevspace.H1)
     vector_element = ufl.finiteelement.FiniteElement(
@@ -401,7 +401,7 @@ def test_name_scalar_15() -> None:
 def test_name_scalar_16() -> None:
     """We multiply non-parametrized coefficients (as in form 7) and solutions."""
     cell = ufl.triangle
-    dim = cell.geometric_dimension()
+    dim = 2
     scalar_element = ufl.finiteelement.FiniteElement(
         "Lagrange", cell, 1, (), ufl.pullback.identity_pullback, ufl.sobolevspace.H1)
     vector_element = ufl.finiteelement.FiniteElement(
@@ -432,7 +432,7 @@ def test_name_scalar_16() -> None:
 def test_name_scalar_17() -> None:
     """Test a form similar to form 15, but where each term is multiplied to a component of a solution."""
     cell = ufl.triangle
-    dim = cell.geometric_dimension()
+    dim = 2
     scalar_element = ufl.finiteelement.FiniteElement(
         "Lagrange", cell, 1, (), ufl.pullback.identity_pullback, ufl.sobolevspace.H1)
     vector_element = ufl.finiteelement.FiniteElement(
@@ -456,7 +456,7 @@ def test_name_scalar_18() -> None:
     In contrast to form 14, the function  does not represent the solution of a parametrized problem.
     """
     cell = ufl.triangle
-    dim = cell.geometric_dimension()
+    dim = 2
     scalar_element = ufl.finiteelement.FiniteElement(
         "Lagrange", cell, 1, (), ufl.pullback.identity_pullback, ufl.sobolevspace.H1)
     vector_element = ufl.finiteelement.FiniteElement(
@@ -485,7 +485,7 @@ def test_name_scalar_19() -> None:
     In contrast to form 16, the function does not represent the solution of a parametrized problem.
     """
     cell = ufl.triangle
-    dim = cell.geometric_dimension()
+    dim = 2
     scalar_element = ufl.finiteelement.FiniteElement(
         "Lagrange", cell, 1, (), ufl.pullback.identity_pullback, ufl.sobolevspace.H1)
     vector_element = ufl.finiteelement.FiniteElement(
@@ -519,7 +519,7 @@ def test_name_scalar_20() -> None:
     In contrast to form 17, the function does not represent the solution of a parametrized problem.
     """
     cell = ufl.triangle
-    dim = cell.geometric_dimension()
+    dim = 2
     scalar_element = ufl.finiteelement.FiniteElement(
         "Lagrange", cell, 1, (), ufl.pullback.identity_pullback, ufl.sobolevspace.H1)
     vector_element = ufl.finiteelement.FiniteElement(
@@ -540,7 +540,7 @@ def test_name_scalar_20() -> None:
 def test_name_scalar_21() -> None:
     """Test a form similar to form 17, but where each term is multiplied to the gradient of a solution."""
     cell = ufl.triangle
-    dim = cell.geometric_dimension()
+    dim = 2
     scalar_element = ufl.finiteelement.FiniteElement(
         "Lagrange", cell, 1, (), ufl.pullback.identity_pullback, ufl.sobolevspace.H1)
     vector_element = ufl.finiteelement.FiniteElement(
@@ -564,7 +564,7 @@ def test_name_scalar_22() -> None:
     In contrast to form 21, the function is not the solution of a parametrized problem.
     """
     cell = ufl.triangle
-    dim = cell.geometric_dimension()
+    dim = 2
     scalar_element = ufl.finiteelement.FiniteElement(
         "Lagrange", cell, 1, (), ufl.pullback.identity_pullback, ufl.sobolevspace.H1)
     vector_element = ufl.finiteelement.FiniteElement(
@@ -585,7 +585,7 @@ def test_name_scalar_22() -> None:
 def test_name_scalar_23() -> None:
     """Test a form with a division between two expressions, which can be equivalently written as one coefficient."""
     cell = ufl.triangle
-    dim = cell.geometric_dimension()
+    dim = 2
     scalar_element = ufl.finiteelement.FiniteElement(
         "Lagrange", cell, 1, (), ufl.pullback.identity_pullback, ufl.sobolevspace.H1)
     vector_element = ufl.finiteelement.FiniteElement(
@@ -609,7 +609,7 @@ def test_name_scalar_24() -> None:
     This is in contrast to form 24.
     """
     cell = ufl.triangle
-    dim = cell.geometric_dimension()
+    dim = 2
     scalar_element = ufl.finiteelement.FiniteElement(
         "Lagrange", cell, 1, (), ufl.pullback.identity_pullback, ufl.sobolevspace.H1)
     vector_element = ufl.finiteelement.FiniteElement(
@@ -630,7 +630,7 @@ def test_name_scalar_24() -> None:
 def test_name_scalar_failure_coefficient() -> None:
     """Test a variation of form 1 that will fail due to not having used named coefficients."""
     cell = ufl.triangle
-    dim = cell.geometric_dimension()
+    dim = 2
     scalar_element = ufl.finiteelement.FiniteElement(
         "Lagrange", cell, 1, (), ufl.pullback.identity_pullback, ufl.sobolevspace.H1)
     vector_element = ufl.finiteelement.FiniteElement(
@@ -655,7 +655,7 @@ def test_name_scalar_failure_coefficient() -> None:
 def test_name_scalar_failure_constant() -> None:
     """Test a variation of form 13 that will fail due to not have used named constants."""
     cell = ufl.triangle
-    dim = cell.geometric_dimension()
+    dim = 2
     scalar_element = ufl.finiteelement.FiniteElement(
         "Lagrange", cell, 1, (), ufl.pullback.identity_pullback, ufl.sobolevspace.H1)
     vector_element = ufl.finiteelement.FiniteElement(
@@ -689,7 +689,7 @@ def test_name_scalar_failure_constant() -> None:
 def test_name_scalar_debug() -> None:
     """Test again form 1 with the additional debug option."""
     cell = ufl.triangle
-    dim = cell.geometric_dimension()
+    dim = 2
     scalar_element = ufl.finiteelement.FiniteElement(
         "Lagrange", cell, 1, (), ufl.pullback.identity_pullback, ufl.sobolevspace.H1)
     vector_element = ufl.finiteelement.FiniteElement(
@@ -711,7 +711,7 @@ def test_name_scalar_debug() -> None:
 def test_name_scalar_expression() -> None:
     """Test the first addend of form 1 to cover name computation of an UFL expression (rather than a form)."""
     cell = ufl.triangle
-    dim = cell.geometric_dimension()
+    dim = 2
     scalar_element = ufl.finiteelement.FiniteElement(
         "Lagrange", cell, 1, (), ufl.pullback.identity_pullback, ufl.sobolevspace.H1)
     vector_element = ufl.finiteelement.FiniteElement(
