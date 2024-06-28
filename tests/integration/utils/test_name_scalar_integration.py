@@ -126,9 +126,9 @@ def test_name_scalar_13_firedrake() -> None:
         + c1 * f1 * u * v * dx
     )
     if np.issubdtype(petsc4py.PETSc.ScalarType, np.complexfloating):  # names differ due to different c2 dtype
-        expected_name = "3cd044e2a94c786d61061c6b893dd744a7ba95df"
+        expected_name = "e7ece68bb09ddc4242b65368d7f91dbf23cea11b"
     else:
-        expected_name = "bf19de5b633b22e5c9c738ac7f96882048e792e1"
+        expected_name = "cf2920bd888f121d99364e7176d9a5a14f6c22d9"
     assert ufl4rom.utils.name(a13) == expected_name
 
 
