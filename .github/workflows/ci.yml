@@ -117,6 +117,7 @@ jobs:
         with:
           name: coverage-${{ matrix.backend }}
           path: .coverage*
+          include-hidden-files: true
           retention-days: 1
 
   combine_coverage_reports:
