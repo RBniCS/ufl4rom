@@ -59,7 +59,7 @@ def test_name_scalar_2() -> None:
     f3 = ufl4rom.utils.NamedCoefficient("parametrized coefficient 3", scalar_function_space)
 
     a2 = ufl.inner(f3 * ufl.grad(u), f2 * ufl.grad(v)) * ufl.dx + f2 * u.dx(0) * v * ufl.dx + f1 * u * v * ufl.dx
-    assert ufl4rom.utils.name(a2) == "576ec12ea5a9873fb298b110038efd747c55d69c"
+    assert ufl4rom.utils.name(a2) == "1a57764c5384bd8280d60bf6408c95b1b89cfc1e"
 
 
 def test_name_scalar_3() -> None:
@@ -119,7 +119,7 @@ def test_name_scalar_4() -> None:
         ufl.inner(f5 * (1 + f1 * f2) * ufl.grad(u), ufl.grad(v)) * ufl.dx + ufl.inner(f4, ufl.grad(u)) * v * ufl.dx
         + f3 * u * v * ufl.dx
     )
-    assert ufl4rom.utils.name(a4) == "ff41720553ff0cd43767bd06e52e7de843ac50bb"
+    assert ufl4rom.utils.name(a4) == "b120cea9b80f224c34689e66b177bfd36c2dfbe7"
 
 
 def test_name_scalar_5() -> None:
@@ -334,7 +334,7 @@ def test_name_scalar_13() -> None:
         ufl.inner(c2 * f3 * c1 * ufl.grad(u), ufl.grad(v)) * ufl.dx + ufl.inner(c1 * f2, ufl.grad(u)) * v * ufl.dx
         + c1 * f1 * u * v * ufl.dx
     )
-    assert ufl4rom.utils.name(a13) == "e5d259a0911a246675d9f118274899efb511405d"
+    assert ufl4rom.utils.name(a13) == "05e0dc97e56ecfafc4d036cf18d56e66792897b7"
 
 
 def test_name_scalar_14() -> None:
@@ -426,7 +426,7 @@ def test_name_scalar_16() -> None:
         ufl.inner(f2 * s3 * f1 * ufl.grad(u), ufl.grad(v)) * ufl.dx + ufl.inner(s2, ufl.grad(u)) * v * ufl.dx
         + s1 * u * v * ufl.dx
     )
-    assert ufl4rom.utils.name(a16) == "28636e5b8ce2357ee10212e0352c7a70c4d571d1"
+    assert ufl4rom.utils.name(a16) == "4c4f4d14900cec34584468991e5dfdff782ce159"
 
 
 def test_name_scalar_17() -> None:
@@ -510,7 +510,7 @@ def test_name_scalar_19() -> None:
         ufl.inner(f2 * k3 * f1 * ufl.grad(u), ufl.grad(v)) * ufl.dx + ufl.inner(k2, ufl.grad(u)) * v * ufl.dx
         + k1 * u * v * ufl.dx
     )
-    assert ufl4rom.utils.name(a19) == "d74997cfe794879f7b0f4f198707579a868378e0"
+    assert ufl4rom.utils.name(a19) == "8e13841a2956f772bfbd27775d5411c039f95028"
 
 
 def test_name_scalar_20() -> None:
