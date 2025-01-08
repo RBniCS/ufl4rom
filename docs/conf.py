@@ -1,4 +1,4 @@
-# Copyright (C) 2021-2024 by the ufl4rom authors
+# Copyright (C) 2021-2025 by the ufl4rom authors
 #
 # This file is part of ufl4rom.
 #
@@ -7,7 +7,7 @@
 
 # Project information
 project = "ufl4rom"
-copyright = "2021-2024, the ufl4rom authors"
+copyright = "2021-2025, the ufl4rom authors"
 author = "Francesco Ballarin"
 
 # General configuration
